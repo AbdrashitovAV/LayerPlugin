@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="LayerPlugin.Views.CoordinateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock VerticalAlignment="Center" Margin="10,0" Text="X:"/>
+        <TextBox Text ="{Binding X}"
+                 Margin="10,0" 
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Width="50"
+                 />
+        <TextBlock VerticalAlignment="Center" Margin="10,0" Text="Y:"/>
+        <TextBox Text ="{Binding Y}" 
+                 Margin="10,0" 
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Width="50"
+                 />
+    </StackPanel>
+</UserControl>
