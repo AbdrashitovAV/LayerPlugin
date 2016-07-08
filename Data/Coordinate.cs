@@ -1,4 +1,6 @@
-﻿namespace LayerPlugin.Data
+﻿using Autodesk.AutoCAD.Geometry;
+
+namespace LayerPlugin.Data
 {
     public class Coordinate
     {
@@ -14,6 +16,12 @@
         {
             X = x;
             Y = y;
+        }
+
+        public Coordinate(Point3d point3D)
+        {
+            X = point3D.X;
+            Y = point3D.Y;
         }
     }
 }

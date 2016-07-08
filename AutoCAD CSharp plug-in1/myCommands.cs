@@ -35,26 +35,8 @@ namespace AutoCAD_CSharp_plug_in1
         [CommandMethod("MyGroup", "Zigmeir", "MyCommandLocal", CommandFlags.Modal)]
         public void Zigmeir() // This method can have any name
         {
-            // Put your command code here
-
-            var a = new LayerPlugin();
-
-            Application.ShowModalWindow(a);
-
-         /*   Document doc = Application.DocumentManager.MdiActiveDocument;
-            
-            if (doc != null)
-            {
-                Editor ed = doc.Editor;
-                var db = doc.Database;
-                //ed.WriteMessage("Hello, this is your first command.");
-
-                var layers = GetLayers(db, ed);
-
-                var a = new AutocadPluginTestApp.MainWindow();
-
-                Application.ShowModalWindow(a);
-            }*/
+            var layerPlugin = new LayerPlugin();
+            Application.ShowModalWindow(layerPlugin);
         }
 
 

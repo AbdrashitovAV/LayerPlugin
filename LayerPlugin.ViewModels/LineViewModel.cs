@@ -13,6 +13,7 @@ namespace LayerPlugin.ViewModels
 
         public LineViewModel(Line line)
         {
+            Id = line.Id;
             Start = line.Start;
             End = line.End;
             Height = line.Height;

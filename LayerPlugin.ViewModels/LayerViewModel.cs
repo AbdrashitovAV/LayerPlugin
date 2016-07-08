@@ -13,7 +13,10 @@ namespace LayerPlugin.ViewModels
         public Layer Layer { get; private set; }
 
         public System.Windows.Media.Brush ColorBrush { get; set; }
-        public ObservableCollection<AutocadObject> Items { get; set; } // todo: switch type
+
+        public ObservableCollection<CircleViewModel> Circles { get; set; } 
+        public ObservableCollection<LineViewModel> Lines { get; set; }
+        public ObservableCollection<PointViewModel> Points { get; set; }
 
         public DelegateCommand<object> ChangeColorCommand { get; set; }
 
@@ -21,21 +24,6 @@ namespace LayerPlugin.ViewModels
         {
             Layer = layer;
             ColorBrush = ColorIndexToMediaBrush(layer.Color.ColorIndex);
-            //            layer.Color.
-            //
-            //            Items = new ObservableCollection<AutocadObject>(layer.Items.Select(x =>
-            //            {
-            //                if (x.GetType() == typeof(Point))
-            //                    return  new PointViewModel(x as Point);
-            //
-            //                if (x.GetType() == typeof(Line))
-            //                    return new LineViewModel(x as Line);
-            //
-            //                if (x.GetType() == typeof(Circle))
-            //                    return new CircleViewModel(x as Circle);
-            //
-            //                return x;
-            //            }));
 
             ChangeColorCommand = new DelegateCommand<object>(OpenSelectColorDialog);
         }

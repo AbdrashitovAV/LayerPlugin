@@ -14,7 +14,7 @@
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
                    Text="Radius:"/>
-        <TextBox Text ="{Binding Height}" 
+        <TextBox Text ="{Binding Radius}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"

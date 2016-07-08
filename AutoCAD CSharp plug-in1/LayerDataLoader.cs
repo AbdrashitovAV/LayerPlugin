@@ -83,7 +83,7 @@ namespace AutoCAD_CSharp_plug_in1
 
                     objects.Add(new Circle()
                     {
-                        Center = new Coordinate(center.X, center.Y),
+                        Center = new Coordinate(center),
                         Radius = circle.Radius
                     });
                 }

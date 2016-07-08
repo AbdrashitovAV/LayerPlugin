@@ -13,7 +13,9 @@ namespace LayerPlugin.ViewModels
 
         public PointViewModel(Point point)
         {
-            Coordinate = point.Coordinate; //TODO: add via copy;
+            Id = point.Id;
+
+            Coordinate = point.Coordinate; //TODO: add via copy?
 
             Height = point.Height;
         }

@@ -13,6 +13,7 @@ namespace LayerPlugin.ViewModels
 
         public CircleViewModel(Circle circle)
         {
+            Id = circle.Id;
             Height = circle.Height;
             Radius= circle.Radius;
             Center = circle.Center;

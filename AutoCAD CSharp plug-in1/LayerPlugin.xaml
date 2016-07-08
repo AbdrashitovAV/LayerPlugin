@@ -7,25 +7,7 @@
         xmlns:views="clr-namespace:LayerPlugin.Views"
         xmlns:helpers ="clr-namespace:LayerPlugin.Views.Helpers"
         mc:Ignorable="d"
-        Title="LayerPlugin" Height="300" Width="300">
-    <Window.Resources>
-        <DataTemplate x:Key="PointTemplate">
-            <views:PointView/>
-        </DataTemplate>
-
-        <DataTemplate x:Key="LineTemplate">
-            <views:LineView/>
-
-        </DataTemplate>
-        <DataTemplate x:Key="CircleTemplate">
-            <views:CircleView/>
-        </DataTemplate>
-
-        <helpers:AutocadObjectDataTemplateSelector x:Key="autocadObjectDataTemplateSelector" 
-                                                   PointTemplate ="{StaticResource PointTemplate}"
-                                                   CircleTemplate="{StaticResource CircleTemplate}"
-                                                   LineTemplate="{StaticResource LineTemplate}"/>
-    </Window.Resources>
+        Title="LayerPlugin" Height="400" Width="600">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -44,12 +26,38 @@
                             </Expander.Header>
 
                             <Expander.Content>
-                                <ItemsControl Margin="3"
-                                              ItemsSource="{Binding Items}" 
+                                <StackPanel>
+                                    <ItemsControl Margin="3"
+                                              ItemsSource="{Binding Points}" 
                                               HorizontalAlignment="Left" 
-                                              VerticalAlignment="Center"
-                                              ItemTemplateSelector="{StaticResource autocadObjectDataTemplateSelector}">
-                                </ItemsControl>
+                                              VerticalAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <views:PointView/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl Margin="3"
+                                              ItemsSource="{Binding Circles}" 
+                                              HorizontalAlignment="Left" 
+                                              VerticalAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <views:CircleView/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl Margin="3"
+                                              ItemsSource="{Binding Lines}" 
+                                              HorizontalAlignment="Left" 
+                                              VerticalAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <views:LineView/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
 
                             </Expander.Content>
 
