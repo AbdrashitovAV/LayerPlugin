@@ -68,9 +68,26 @@ namespace AutoCAD_CSharp_plug_in1
                         databaseCircle.Center = new Point3d(circle.Center.X, circle.Center.Y, 0);
                         databaseCircle.Radius = circle.Radius;
                     }
+
+                    foreach (var line in layerModel.Lines)
+                    {
+                        var databaseLine = (Autodesk.AutoCAD.DatabaseServices.Line)transaction.GetObject(line.Id, OpenMode.ForWrite);
+
+                        databaseLine.LayerId = layerModel.Layer.Id;
+                        databaseLine.StartPoint = new Point3d(line.Start.X, line.Start.Y, 0);
+                        databaseLine.EndPoint = new Point3d(line.End.X, line.End.Y, 0);
+                    }
+
+                    foreach (var point in layerModel.Points)
+                    {
+                        var databasePoint = (Autodesk.AutoCAD.DatabaseServices.DBPoint)transaction.GetObject(point.Id, OpenMode.ForWrite);
+
+                        databasePoint.LayerId = layerModel.Layer.Id;
+                        databasePoint.Position = new Point3d(point.Coordinate.X, point.Coordinate.Y, 0);
+                    }
                 }
 
-//                transaction.Commit();
+                transaction.Commit();
             }
 
 
