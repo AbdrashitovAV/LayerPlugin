@@ -128,7 +128,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AutocadObjectDataTemplateSelector.cs" />
     <Compile Include="LayerDataLoader.cs" />
     <Compile Include="LayerPlugin.xaml.cs">
       <DependentUpon>LayerPlugin.xaml</DependentUpon>

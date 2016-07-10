@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
 using Autodesk.AutoCAD.Windows;
@@ -14,9 +15,9 @@ namespace LayerPlugin.ViewModels
 
         public System.Windows.Media.Brush ColorBrush { get; set; }
 
-        public ObservableCollection<CircleViewModel> Circles { get; set; } 
-        public ObservableCollection<LineViewModel> Lines { get; set; }
         public ObservableCollection<PointViewModel> Points { get; set; }
+        public ObservableCollection<CircleViewModel> Circles { get; set; }
+        public ObservableCollection<LineViewModel> Lines { get; set; }
 
         public DelegateCommand<object> ChangeColorCommand { get; set; }
 
@@ -26,6 +27,13 @@ namespace LayerPlugin.ViewModels
             ColorBrush = ColorIndexToMediaBrush(layer.Color.ColorIndex);
 
             ChangeColorCommand = new DelegateCommand<object>(OpenSelectColorDialog);
+        }
+
+        public LayerViewModel(Layer layer, List<Point> points, List<Circle> circles, List<Line> lines) : this(layer)
+        {
+            Points = new ObservableCollection<PointViewModel>(points.Select(x => new PointViewModel(x)));
+            Circles = new ObservableCollection<CircleViewModel>(circles.Select(x => new CircleViewModel(x)));
+            Lines = new ObservableCollection<LineViewModel>(lines.Select(x => new LineViewModel(x)));
         }
 
 

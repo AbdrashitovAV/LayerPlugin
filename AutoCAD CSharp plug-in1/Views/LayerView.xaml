@@ -6,11 +6,6 @@
              xmlns:views="clr-namespace:LayerPlugin.Views"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal" Margin="3">
-        <CheckBox IsChecked="{Binding Layer.IsVisible}"
-                  Margin="20,0,3,0"    
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Center"
-                  />
         <Label Content ="Name:" 
                Margin="20,0,3,0" 
                HorizontalAlignment="Left"

@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using LayerPlugin.Data;
 using LayerPlugin.Views;
 using Microsoft.Practices.Prism.Commands;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 using Exception = Autodesk.AutoCAD.Runtime.Exception;
-using LPD = LayerPlugin.Data;
 
 namespace LayerPlugin.ViewModels
 {
@@ -34,9 +30,9 @@ namespace LayerPlugin.ViewModels
             CloseCommand = new DelegateCommand<object>(CloseWindow);
             ApplyAndCloseCommand = new DelegateCommand<object>(ApplyAndClose);
 
-            LayerViewModels = new ObservableCollection<LayerViewModel>();
             LayerViewModels = LoadLayers();
             _layerNames = LayerViewModels.Select(x => x.Layer.Name).ToList();
+
         }
 
         private void MoveSelected(object obj)
@@ -143,7 +139,6 @@ namespace LayerPlugin.ViewModels
             CloseWindow(obj);
         }
 
-
         private ObservableCollection<LayerViewModel> LoadLayers()
         {
             var layerDataLoader = new LayerDataLoader();
@@ -153,164 +148,7 @@ namespace LayerPlugin.ViewModels
             if (document == null)
                 throw new Exception(ErrorStatus.NoDocument, "Cannot load document");
 
-            var layers = layerDataLoader.GetLayers(document);
-            var layerViewModels = new ObservableCollection<LayerViewModel>();
-
-            var circles = LoadAllCircles(document);
-            var lines = LoadAllLines(document);
-            var points = LoadAllPoints(document);
-
-            foreach (var layer in layers)
-            {
-                var layerViewModel = new LayerViewModel(layer)
-                {
-                    Circles = new ObservableCollection<CircleViewModel>(
-                        circles.
-                        Where(x => x.LayerId == layer.Id).
-                        Select(x => new CircleViewModel(x)).
-                        ToList()),
-                    Points = new ObservableCollection<PointViewModel>(
-                        points.
-                        Where(x => x.LayerId == layer.Id).
-                        Select(x => new PointViewModel(x)).
-                        ToList()),
-                    Lines = new ObservableCollection<LineViewModel>(
-                        lines.
-                        Where(x => x.LayerId == layer.Id).
-                        Select(x => new LineViewModel(x)).
-                        ToList())
-                };
-
-
-
-                layerViewModels.Add(layerViewModel);
-            }
-            return layerViewModels;
-        }
-
-
-        private List<LPD.Circle> LoadAllCircles(Document document)
-        {
-            var documentDatabase = document.Database;
-            var editor = document.Editor;
-            var circles = new List<LPD.Circle>();
-
-            using (Transaction tr = documentDatabase.TransactionManager.StartOpenCloseTransaction())
-            {
-                var filterlist = new TypedValue[1]
-                {
-                    new TypedValue(0, "CIRCLE")
-                };
-
-                var filter = new SelectionFilter(filterlist);
-                var selectionResult = editor.SelectAll(filter);
-                if (selectionResult.Status != PromptStatus.OK)
-                {
-                    return new List<LPD.Circle>();
-                }
-                var ids = selectionResult.Value.GetObjectIds();
-
-                foreach (var id in ids)
-                {
-                    var circle = (Autodesk.AutoCAD.DatabaseServices.Circle)tr.GetObject(id, OpenMode.ForRead);
-
-                    var center = circle.Center;
-
-                    circles.Add(new LPD.Circle
-                    {
-                        Id = id,
-                        Center = new Coordinate(center),
-                        Radius = circle.Radius,
-                        LayerId = circle.LayerId
-                    });
-                }
-            }
-
-            return circles;
-        }
-
-
-        private List<LPD.Line> LoadAllLines(Document document)
-        {
-            var documentDatabase = document.Database;
-            var editor = document.Editor;
-            var lines = new List<LPD.Line>();
-
-            using (Transaction tr = documentDatabase.TransactionManager.StartOpenCloseTransaction())
-            {
-                var filterlist = new TypedValue[1]
-                {
-                    new TypedValue(0, "LINE")
-                };
-
-                var filter = new SelectionFilter(filterlist);
-                var selectionResult = editor.SelectAll(filter);
-
-                if (selectionResult.Status != PromptStatus.OK)
-                {
-                    return new List<LPD.Line>();
-                }
-                var ids = selectionResult.Value.GetObjectIds();
-
-                foreach (var id in ids)
-                {
-                    var line = (Autodesk.AutoCAD.DatabaseServices.Line)tr.GetObject(id, OpenMode.ForRead);
-
-                    var startPoint = line.StartPoint;
-                    var endPoint = line.EndPoint;
-
-                    lines.Add(new LPD.Line
-                    {
-                        Id = id,
-                        Start = new Coordinate(startPoint),
-                        End = new Coordinate(endPoint),
-                        LayerId = line.LayerId
-                    });
-                }
-            }
-
-            return lines;
-        }
-
-        private List<LPD.Point> LoadAllPoints(Document document)
-        {
-            var documentDatabase = document.Database;
-            var editor = document.Editor;
-            var points = new List<LPD.Point>();
-
-            using (Transaction tr = documentDatabase.TransactionManager.StartOpenCloseTransaction())
-            {
-                var filterlist = new TypedValue[1]
-                {
-                    new TypedValue(0, "POINT")
-                };
-
-                var filter = new SelectionFilter(filterlist);
-                var selectionResult = editor.SelectAll(filter);
-
-                if (selectionResult.Status != PromptStatus.OK)
-                {
-                    return new List<LPD.Point>();
-                }
-
-                var ids = selectionResult.Value.GetObjectIds();
-
-                foreach (var id in ids)
-                {
-                    var point = (Autodesk.AutoCAD.DatabaseServices.DBPoint)tr.GetObject(id, OpenMode.ForRead);
-
-                    var position = point.Position;
-
-                    points.Add(new LPD.Point
-                    {
-                        Id = id,
-                        LayerId = point.LayerId,
-                        Coordinate = new Coordinate(position)
-                    });
-                }
-            }
-
-            return points;
+            return new ObservableCollection<LayerViewModel>(layerDataLoader.GetLayers(document));
         }
     }
 }

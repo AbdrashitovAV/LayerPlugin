@@ -2,90 +2,147 @@
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using LayerPlugin.Data;
-using Circle = LayerPlugin.Data.Circle;
+using LayerPlugin.ViewModels;
+using LPD = LayerPlugin.Data;
+using AcDb = Autodesk.AutoCAD.DatabaseServices;
 
 namespace LayerPlugin
 {
     public class LayerDataLoader
     {
-        public List<Layer> GetLayers(Document document)
+        public List<LayerViewModel> GetLayers(Document document)
         {
             var documentDatabase = document.Database;
 
-            var lstlay = new List<Layer>();
+            var layerViewModels = new List<LayerViewModel>();
 
             using (Transaction tr = documentDatabase.TransactionManager.StartOpenCloseTransaction())
             {
                 var lt = (LayerTable)tr.GetObject(documentDatabase.LayerTableId, OpenMode.ForRead);
                 foreach (ObjectId layerId in lt)
                 {
-                    var layer = tr.GetObject(layerId, OpenMode.ForWrite) as LayerTableRecord;
+                    var acdbLayer = tr.GetObject(layerId, OpenMode.ForRead) as LayerTableRecord;
 
-                    lstlay.Add(new Layer(layer));
+                    var layer = new LPD.Layer(acdbLayer);
 
+                    var points = GetPointsOnLayer(acdbLayer.Name, document);
+                    var circles = GetCirclesOnLayer(acdbLayer.Name, document);
+                    var lines = GetLinesOnLayer(acdbLayer.Name, document);
+
+                    var layerViewModel = new LayerViewModel(layer, points, circles, lines);
+                    layerViewModels.Add(layerViewModel);
                 }
 
             }
-            return lstlay;
+
+            return layerViewModels;
         }
 
-        private List<AutocadObject> GetObjectsOnLayer(LayerTableRecord layer, Editor ed, Transaction tr)
+        private List<LPD.Circle> GetCirclesOnLayer(string layerName, Document document)
         {
-            var objects = new List<AutocadObject>();
-            TypedValue[] filterlist = new TypedValue[3] {
-            /*            {
-
-                        //filterlist[0] = new TypedValue(0, "CIRCLE,LINE,POINT");
-                            new TypedValue((int)DxfCode.LayerName, "0")
-                        };*/
-
-            
-            new TypedValue((int)DxfCode.Operator,  "<and"),
-            new TypedValue((int)DxfCode.LayerName, @"Layer1"),
-            new TypedValue((int)DxfCode.Operator,  "and>"),
-            };
-
-            var a = new TypedValue((int)DxfCode.LayerName, @"Layer1");
-            var b = new TypedValue((int)DxfCode.LayerName, layer.Name);
-
-            //filterlist.SetValue(new TypedValue((int)DxfCode.LayerName, layer.Name), 0)
-            SelectionFilter filter = new SelectionFilter(filterlist);
-
-            var selRes = ed.SelectAll(filter);
-
-
-
-            if (selRes.Status != PromptStatus.OK)
+            using (Transaction tr = document.Database.TransactionManager.StartOpenCloseTransaction())
             {
-                //ed.WriteMessage("\nerror in getting the selectAll");
-                return new List<AutocadObject>();
-            }
+                var circles = new List<LPD.Circle>();
+                var ids = GetObjectIdsInSelectedLayerOfType(document.Editor, layerName, "CIRCLE");
+                if (ids == null)
+                    return new List<LPD.Circle>();
 
-            var ids = selRes.Value.GetObjectIds();
-
-
-            foreach (var id in ids)
-            {
-                Entity ent = (Entity)tr.GetObject(id, OpenMode.ForRead);
-
-                if (id.ObjectClass.DxfName == "CIRCLE")
+                foreach (var id in ids)
                 {
-                    var circle = (Autodesk.AutoCAD.DatabaseServices.Circle)ent;
-                    var center = circle.Center;
+                    var acdbCircle = (AcDb.Circle)tr.GetObject(id, OpenMode.ForRead);
 
-                    objects.Add(new Circle()
+                    var center = acdbCircle.Center;
+
+                    circles.Add(new LPD.Circle
                     {
-                        Center = new Coordinate(center),
-                        Radius = circle.Radius
+                        Id = id,
+                        Center = new LPD.Coordinate(center),
+                        Radius = acdbCircle.Radius,
+                        LayerId = acdbCircle.LayerId
                     });
                 }
 
+                return circles;
+            }
+        }
 
+        private List<LPD.Line> GetLinesOnLayer(string layerName, Document document)
+        {
+            using (Transaction tr = document.Database.TransactionManager.StartOpenCloseTransaction())
+            {
+                var lines = new List<LPD.Line>();
+                var ids = GetObjectIdsInSelectedLayerOfType(document.Editor, layerName, "LINE");
+
+                if (ids == null)
+                    return new List<LPD.Line>();
+
+                foreach (var id in ids)
+                {
+                    var line = (AcDb.Line)tr.GetObject(id, OpenMode.ForRead);
+
+                    var startPoint = line.StartPoint;
+                    var endPoint = line.EndPoint;
+
+                    lines.Add(new LPD.Line
+                    {
+                        Id = id,
+                        Start = new LPD.Coordinate(startPoint),
+                        End = new LPD.Coordinate(endPoint),
+                        LayerId = line.LayerId
+                    });
+                }
+
+                return lines;
+            }
+        }
+
+        private List<LPD.Point> GetPointsOnLayer(string layerName, Document document)
+        {
+            using (Transaction tr = document.Database.TransactionManager.StartOpenCloseTransaction())
+            {
+                var points = new List<LPD.Point>();
+                var ids = GetObjectIdsInSelectedLayerOfType(document.Editor, layerName, "POINT");
+
+                if (ids == null)
+                    return new List<LPD.Point>();
+
+                foreach (var id in ids)
+                {
+                    var point = (AcDb.DBPoint)tr.GetObject(id, OpenMode.ForRead);
+
+                    var position = point.Position;
+
+                    points.Add(new LPD.Point
+                    {
+                        Id = id,
+                        LayerId = point.LayerId,
+                        Coordinate = new LPD.Coordinate(position)
+                    });
+                }
+
+                return points;
+            }
+        }
+
+
+        private ObjectId[] GetObjectIdsInSelectedLayerOfType(Editor editor, string layerName, string objectType)
+        {
+            var filterlist = new TypedValue[2]
+            {
+                new TypedValue(0, objectType),
+                new TypedValue((int) DxfCode.LayerName, layerName),
+            };
+
+            var filter = new SelectionFilter(filterlist);
+
+            var selRes = editor.SelectAll(filter);
+
+            if (selRes.Status != PromptStatus.OK)
+            {
+                return null;
             }
 
-            return objects;
-
+            return selRes.Value.GetObjectIds(); ;
         }
     }
 }
