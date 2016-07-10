@@ -135,6 +135,7 @@ namespace LayerPlugin.ViewModels
                         databaseCircle.LayerId = layerModel.Layer.Id;
                         databaseCircle.Center = new Point3d(circle.Center.X, circle.Center.Y, 0);
                         databaseCircle.Radius = circle.Radius;
+                        databaseCircle.Thickness = circle.Height;
                     }
 
                     foreach (var line in layerModel.Lines)
@@ -144,6 +145,7 @@ namespace LayerPlugin.ViewModels
                         databaseLine.LayerId = layerModel.Layer.Id;
                         databaseLine.StartPoint = new Point3d(line.Start.X, line.Start.Y, 0);
                         databaseLine.EndPoint = new Point3d(line.End.X, line.End.Y, 0);
+                        databaseLine.Thickness = line.Height;
                     }
 
                     foreach (var point in layerModel.Points)
@@ -152,6 +154,7 @@ namespace LayerPlugin.ViewModels
 
                         databasePoint.LayerId = layerModel.Layer.Id;
                         databasePoint.Position = new Point3d(point.Coordinate.X, point.Coordinate.Y, 0);
+                        databasePoint.Thickness = point.Height;
                     }
                 }
 
