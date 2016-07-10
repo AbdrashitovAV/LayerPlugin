@@ -21,7 +21,7 @@
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"
-                 Width="50"
+                 Width="80"
                  />
     </StackPanel>
 </UserControl>

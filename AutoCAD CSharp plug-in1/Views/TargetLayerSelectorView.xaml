@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:views="clr-namespace:LayerPlugin.Views"
              mc:Ignorable="d">
     <Window.Resources>
         <system:Boolean x:Key="True">True</system:Boolean>
         <system:Boolean x:Key="False">False</system:Boolean>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -22,7 +23,14 @@
                      SelectedItem="{Binding SelectedLayer}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
+                        <Grid>
+                            <Grid.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" 
+                                  Command="{Binding DataContext.CloseWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type views:TargetLayerSelectorView}}}" 
+                                  CommandParameter="{StaticResource True}"/>
+                            </Grid.InputBindings>
+                            <TextBlock Text="{Binding}" />
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
 
@@ -39,6 +47,9 @@
                     Margin="5"
                     Command="{Binding CloseWindowCommand}" 
                     CommandParameter="{StaticResource False}"/>
-            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
+
+
+
