@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -8,29 +9,77 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using LayerPlugin.Data;
-using LayerPlugin.ViewModels;
+using LayerPlugin.Views;
 using Microsoft.Practices.Prism.Commands;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 using LPD = LayerPlugin.Data;
 
-namespace AutoCAD_CSharp_plug_in1
+namespace LayerPlugin.ViewModels
 {
     internal class LayerPluginViewModel
     {
+        private List<String> _layerNames;
+
         public ObservableCollection<LayerViewModel> LayerViewModels { get; set; }
 
+        public DelegateCommand<object> MoveSelectedCommand { get; set; }
         public DelegateCommand<object> CloseCommand { get; set; }
         public DelegateCommand<object> ApplyAndCloseCommand { get; set; }
 
 
         public LayerPluginViewModel()
         {
+            MoveSelectedCommand = new DelegateCommand<object>(MoveSelected);
             CloseCommand = new DelegateCommand<object>(CloseWindow);
             ApplyAndCloseCommand = new DelegateCommand<object>(ApplyAndClose);
 
             LayerViewModels = new ObservableCollection<LayerViewModel>();
+            LayerViewModels = LoadLayers();
+            _layerNames = LayerViewModels.Select(x => x.Layer.Name).ToList();
+        }
 
-            LoadLayers();
+        private void MoveSelected(object obj)
+        {
+            var sourceLayerName = (string)obj;
+            var sourceLayer = LayerViewModels.Single(x => x.Layer.Name == sourceLayerName);
+
+            var namesToShow = _layerNames.Where(x => x != sourceLayerName).ToList();
+
+            IntPtr owner = Autodesk.AutoCAD.ApplicationServices.Application.MainWindow.Handle;
+            var modal = new TargetLayerSelectorView(namesToShow);
+
+            Application.ShowModalWindow(owner, modal);
+
+            var targetLayerName = modal.TargetLayer;
+
+            if (string.IsNullOrEmpty(targetLayerName))
+                return;
+
+            var targetLayer = LayerViewModels.Single(x => x.Layer.Name == targetLayerName);
+            var targetLayerId = targetLayer.Layer.Id; // TODO: make dictioary instead?
+
+            var pointsToProcess = sourceLayer.Points.Where(x => x.IsSelected).ToList();
+            foreach (var point in pointsToProcess)
+            {
+                point.LayerId = targetLayerId;
+                sourceLayer.Points.Remove(point);
+                targetLayer.Points.Add(point);
+            }
+            var circlesToProcess = sourceLayer.Circles.Where(x => x.IsSelected).ToList();
+            foreach (var circle in circlesToProcess)
+            {
+                circle.LayerId = targetLayerId;
+                sourceLayer.Circles.Remove(circle);
+                targetLayer.Circles.Add(circle);
+            }
+            var linesToProcess = sourceLayer.Lines.Where(x => x.IsSelected).ToList();
+            foreach (var line in linesToProcess)
+            {
+                line.LayerId = targetLayerId;
+                sourceLayer.Lines.Remove(line);
+                targetLayer.Lines.Add(line);
+            }
         }
 
 
@@ -43,7 +92,7 @@ namespace AutoCAD_CSharp_plug_in1
 
         private void ApplyAndClose(object obj)
         {
-            //TODO: move to separate file
+            //TODO: move logic to separate file
 
             var document = Application.DocumentManager.MdiActiveDocument;
 
@@ -95,7 +144,7 @@ namespace AutoCAD_CSharp_plug_in1
         }
 
 
-        private void LoadLayers()
+        private ObservableCollection<LayerViewModel> LoadLayers()
         {
             var layerDataLoader = new LayerDataLoader();
 
@@ -105,6 +154,7 @@ namespace AutoCAD_CSharp_plug_in1
                 throw new Exception(ErrorStatus.NoDocument, "Cannot load document");
 
             var layers = layerDataLoader.GetLayers(document);
+            var layerViewModels = new ObservableCollection<LayerViewModel>();
 
             var circles = LoadAllCircles(document);
             var lines = LoadAllLines(document);
@@ -132,8 +182,10 @@ namespace AutoCAD_CSharp_plug_in1
                 };
 
 
-                LayerViewModels.Add(layerViewModel);
+
+                layerViewModels.Add(layerViewModel);
             }
+            return layerViewModels;
         }
 
 

@@ -12,6 +12,8 @@
                    VerticalAlignment="Center" 
                    Width="80"/>
 
+        <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
+                   Margin="10,0"/>
         <views:CoordinateView DataContext="{Binding Start }"/>
         <views:CoordinateView DataContext="{Binding End }"/>
 

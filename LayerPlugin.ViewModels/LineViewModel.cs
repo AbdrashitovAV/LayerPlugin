@@ -4,7 +4,7 @@ namespace LayerPlugin.ViewModels
 {
     public class LineViewModel: Line, IPluginViewModel
     {
-        public bool IsSelected { get; }
+        public bool IsSelected { get; set; }
 
         public LineViewModel()
         {

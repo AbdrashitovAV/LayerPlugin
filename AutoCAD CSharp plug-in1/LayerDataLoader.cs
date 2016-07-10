@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Autodesk.AutoCAD.Runtime;
+﻿using System.Collections.Generic;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
 using LayerPlugin.Data;
 using Circle = LayerPlugin.Data.Circle;
 
-namespace AutoCAD_CSharp_plug_in1
+namespace LayerPlugin
 {
     public class LayerDataLoader
     {
@@ -25,9 +21,6 @@ namespace AutoCAD_CSharp_plug_in1
                 foreach (ObjectId layerId in lt)
                 {
                     var layer = tr.GetObject(layerId, OpenMode.ForWrite) as LayerTableRecord;
-
-                    //var a = GetObjectsOnLayer(layer, ed, tr);
-
 
                     lstlay.Add(new Layer(layer));
 

@@ -4,7 +4,7 @@ namespace LayerPlugin.ViewModels
 {
     public class PointViewModel: Point, IPluginViewModel
     {
-        public bool IsSelected { get; }
+        public bool IsSelected { get; set; }
 
         public PointViewModel()
         {

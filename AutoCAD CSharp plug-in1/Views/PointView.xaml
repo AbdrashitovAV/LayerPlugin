@@ -10,7 +10,8 @@
         <TextBlock Text="I'm a Point" 
                    VerticalAlignment="Center" 
                    Width="80"/>
-        
+        <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
+                   Margin="10,0"/>
         <views:CoordinateView DataContext="{Binding Coordinate }"/>
         
         <TextBlock VerticalAlignment="Center"

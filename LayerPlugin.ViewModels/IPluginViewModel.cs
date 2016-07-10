@@ -2,6 +2,6 @@
 {
     public interface IPluginViewModel
     {
-        bool IsSelected { get; }
+        bool IsSelected { get; set; }
     }
 }

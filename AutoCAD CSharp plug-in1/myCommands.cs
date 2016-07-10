@@ -1,18 +1,11 @@
-﻿// (C) Copyright 2016 by  
-//
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.EditorInput;
+using LayerPlugin.Views;
 
 // This line is not mandatory, but improves loading performances
-[assembly: CommandClass(typeof(AutoCAD_CSharp_plug_in1.MyCommands))]
+[assembly: CommandClass(typeof(LayerPlugin.MyCommands))]
 
-namespace AutoCAD_CSharp_plug_in1
+namespace LayerPlugin
 {
 
     // This class is instantiated by AutoCAD for each document when
@@ -32,84 +25,13 @@ namespace AutoCAD_CSharp_plug_in1
         // context menu.
 
         // Modal Command with localized name
-        [CommandMethod("MyGroup", "Zigmeir", "MyCommandLocal", CommandFlags.Modal)]
-        public void Zigmeir() // This method can have any name
+        [CommandMethod("MyGroup", "autocad", "MyCommandLocal", CommandFlags.Modal)]
+        public void Autocad() // This method can have any name
         {
-            var layerPlugin = new LayerPlugin();
-            Application.ShowModalWindow(layerPlugin);
+            var layerPluginWindow = new MainWindow();
+            Application.ShowModalWindow(layerPluginWindow);
         }
-
-
-        private SelectionFilter SetupFilter()
-        {
-            TypedValue[] filterlist = new TypedValue[1];
-
-            filterlist[0] = new TypedValue(0, "CIRCLE,LINE,POINT");
-
-            SelectionFilter filter = new SelectionFilter(filterlist);
-
-            return filter;
-        }
-
-
-
-        private SelectionFilter SetupFilter(ref string layerName)
-        {
-            TypedValue[] filterlist = new TypedValue[1];
-            /*            {
-
-                        //filterlist[0] = new TypedValue(0, "CIRCLE,LINE,POINT");
-                            new TypedValue((int)DxfCode.LayerName, "0")
-                        };*/
-
-            filterlist.SetValue(new TypedValue((int)DxfCode.LayerName, layerName), 0);
-
-            SelectionFilter filter = new SelectionFilter(filterlist);
-
-            return filter;
-        }
-
-
-
         
-
-
-        // Modal Command with pickfirst selection
-        [CommandMethod("MyGroup", "MyPickFirst", "MyPickFirstLocal", CommandFlags.Modal | CommandFlags.UsePickSet)]
-        public void MyPickFirst() // This method can have any name
-        {
-            PromptSelectionResult result = Application.DocumentManager.MdiActiveDocument.Editor.GetSelection();
-            if (result.Status == PromptStatus.OK)
-            {
-                // There are selected entities
-                // Put your command using pickfirst set code here
-            }
-            else
-            {
-                // There are no selected entities
-                // Put your command code here
-            }
-        }
-
-        // Application Session Command with localized name
-        [CommandMethod("MyGroup", "MySessionCmd", "MySessionCmdLocal", CommandFlags.Modal | CommandFlags.Session)]
-        public void MySessionCmd() // This method can have any name
-        {
-            // Put your command code here
-        }
-
-        // LispFunction is similar to CommandMethod but it creates a lisp 
-        // callable function. Many return types are supported not just string
-        // or integer.
-        [LispFunction("MyLispFunction", "MyLispFunctionLocal")]
-        public int MyLispFunction(ResultBuffer args) // This method can have any name
-        {
-            // Put your command code here
-
-            // Return a value to the AutoCAD Lisp Interpreter
-            return 1;
-        }
-
     }
 
 }

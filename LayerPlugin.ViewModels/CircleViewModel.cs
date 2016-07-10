@@ -4,7 +4,7 @@ namespace LayerPlugin.ViewModels
 {
     public class CircleViewModel : Circle, IPluginViewModel
     {
-        public bool IsSelected { get; }
+        public bool IsSelected { get; set; }
 
         public CircleViewModel()
         {
