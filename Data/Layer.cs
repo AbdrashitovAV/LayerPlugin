@@ -1,39 +1,41 @@
-﻿using System.Collections.Generic;
-using Autodesk.AutoCAD.Colors;
-using Autodesk.AutoCAD.DatabaseServices;
-
-namespace LayerPlugin.Data
+﻿namespace LayerPlugin.Data
 {
     public class Layer
     {
-        private readonly LayerTableRecord _layer;
-
-        public ObjectId Id { get; set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
-        public Color Color { get; set; }
+        public IColor Color { get; set; }
 
         public bool IsVisible { get; set; }
 
-//        public List<AutocadObject> Items { get; set; }
 
         public Layer()
         {
-//            Items = new List<AutocadObject>();
         }
 
-        public Layer(LayerTableRecord layer) : this()
+        public Layer(int id, string name, IColor color) : this()
         {
-            _layer = layer;
-
-            Name = layer.Name;
-            Color = layer.Color;
-            Id = layer.Id;
+            Id = id;
+            Name = name;
+            Color = color;
         }
+    }
 
-        public void SaveChangesToLayer()
-        {
-            _layer.Name = Name;
-        }
+    public interface IColor
+    {
+    }
+
+    public class SimpleColor : IColor
+    {
+        public byte Red { get; set; }
+        public byte Green { get; set; }
+        public byte Blue { get; set; }
+    }
+
+    public class ComplexColor : IColor
+    {
+        public SimpleColor First { get; set; }
+        public SimpleColor Second { get; set; }
     }
 }

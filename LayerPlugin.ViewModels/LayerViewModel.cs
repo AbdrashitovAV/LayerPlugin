@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
-using Autodesk.AutoCAD.Windows;
 using LayerPlugin.Data;
 using LayerPlugin.ViewModels.PropertyChanged;
 using Microsoft.Practices.Prism.Commands;
@@ -24,9 +24,27 @@ namespace LayerPlugin.ViewModels
         public LayerViewModel(Layer layer)
         {
             Layer = layer;
-            ColorBrush = ColorIndexToMediaBrush(layer.Color.ColorIndex);
+            //ColorBrush = ColorIndexToMediaBrush(layer.Color.ColorIndex);
+            ColorBrush = GetBrushForColor(layer.Color);
 
             ChangeColorCommand = new DelegateCommand<object>(OpenSelectColorDialog);
+        }
+
+        private Brush GetBrushForColor(IColor color)
+        {
+            if (color is SimpleColor)
+            {
+                var simpleColor = (SimpleColor)color;
+                var solidColor = Color.FromRgb(simpleColor.Red, simpleColor.Green, simpleColor.Blue);
+
+                return new SolidColorBrush(solidColor);
+            }
+            if (color is ComplexColor)
+            {
+                
+            }
+
+            throw new NotImplementedException();
         }
 
         public LayerViewModel(Layer layer, List<Point> points, List<Circle> circles, List<Line> lines) : this(layer)
@@ -39,48 +57,49 @@ namespace LayerPlugin.ViewModels
 
         private void OpenSelectColorDialog(object obj)
         {
+            //TODO: implement in dependency
 
-            var colorDialog = new ColorDialog
-            {
-                IncludeByBlockByLayer = false,
-                Color = Layer.Color
-            };
+        //    var colorDialog = new ColorDialog
+        //    {
+        //        IncludeByBlockByLayer = false,
+        //        Color = Layer.Color
+        //    };
 
-            var dialogResult = colorDialog.ShowDialog();
+        //    var dialogResult = colorDialog.ShowDialog();
 
-            if (dialogResult == System.Windows.Forms.DialogResult.OK)
-            {
-                var selectedColor = colorDialog.Color;
+        //    if (dialogResult == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        var selectedColor = colorDialog.Color;
 
-                Layer.Color = selectedColor;
-                ColorBrush = ColorIndexToMediaBrush(selectedColor.ColorIndex);
+        //        Layer.Color = selectedColor;
+        //        ColorBrush = ColorIndexToMediaBrush(selectedColor.ColorIndex);
 
-                RaisePropertyChanged(() => ColorBrush);
-            }
+        //        RaisePropertyChanged(() => ColorBrush);
+        //    }
         }
 
-        //TODO: move this function to separate class
-        private Brush ColorIndexToMediaBrush(int colorIndex)
-        {
-            if (colorIndex != 7)
-            {
-                var acirgb = Autodesk.AutoCAD.Colors.EntityColor.LookUpRgb((byte)colorIndex);
-                var b = (byte)(acirgb);
-                var g = (byte)(acirgb >> 8);
-                var r = (byte)(acirgb >> 16);
-
-                var color = Color.FromRgb(r, g, b);
-                return new SolidColorBrush(color);
-            }
-            else
-            {
-                var specialBrush = new LinearGradientBrush();
-                specialBrush.GradientStops.Add(new GradientStop(Colors.White, 0.0));
-                specialBrush.GradientStops.Add(new GradientStop(Colors.White, 0.5));
-                specialBrush.GradientStops.Add(new GradientStop(Colors.Black, 0.51));
-                specialBrush.GradientStops.Add(new GradientStop(Colors.Black, 1.0));
-                return specialBrush;
-            }
-        }
+//        //TODO: move this function to separate class
+//        private Brush ColorIndexToMediaBrush(int colorIndex)
+//        {
+//            if (colorIndex != 7)
+//            {
+//                var acirgb = Autodesk.AutoCAD.Colors.EntityColor.LookUpRgb((byte)colorIndex);
+//                var b = (byte)(acirgb);
+//                var g = (byte)(acirgb >> 8);
+//                var r = (byte)(acirgb >> 16);
+//
+//                var color = Color.FromRgb(r, g, b);
+//                return new SolidColorBrush(color);
+//            }
+//            else
+//            {
+//                var specialBrush = new LinearGradientBrush();
+//                specialBrush.GradientStops.Add(new GradientStop(Colors.White, 0.0));
+//                specialBrush.GradientStops.Add(new GradientStop(Colors.White, 0.5));
+//                specialBrush.GradientStops.Add(new GradientStop(Colors.Black, 0.51));
+//                specialBrush.GradientStops.Add(new GradientStop(Colors.Black, 1.0));
+//                return specialBrush;
+//            }
+//        }
     }
 }

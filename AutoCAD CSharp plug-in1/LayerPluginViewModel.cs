@@ -6,6 +6,7 @@ using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
+using LayerPlugin.Helpers;
 using LayerPlugin.Views;
 using Microsoft.Practices.Prism.Commands;
 using AcAp = Autodesk.AutoCAD.ApplicationServices;
@@ -17,6 +18,7 @@ namespace LayerPlugin.ViewModels
     internal class LayerPluginViewModel
     {
         private List<String> _layerNames;
+        private readonly StateSaver _stateSaver;
 
         public ObservableCollection<LayerViewModel> LayerViewModels { get; set; }
 
@@ -33,8 +35,22 @@ namespace LayerPlugin.ViewModels
 
             LayerViewModels = LoadLayers();
             _layerNames = LayerViewModels.Select(x => x.Layer.Name).ToList();
+            _stateSaver = new StateSaver();
         }
 
+        private ObservableCollection<LayerViewModel> LoadLayers()
+        {
+            var layerDataLoader = new LayerDataLoader();
+
+            var document = AcAp.Application.DocumentManager.MdiActiveDocument;
+
+            if (document == null)
+                throw new AcRx.Exception(ErrorStatus.NoDocument, "Cannot load document");
+
+            return new ObservableCollection<LayerViewModel>(layerDataLoader.GetLayers(document));
+        }
+
+        #region move objects
         private void MoveSelected(object obj)
         {
             var sourceLayerName = (string)obj;
@@ -69,7 +85,6 @@ namespace LayerPlugin.ViewModels
             var linesToProcess = sourceLayer.Lines.Where(x => x.IsSelected).ToList();
             foreach (var line in linesToProcess)
             {
-                line.LayerId = targetLayerId;
                 line.IsSelected = false;
                 sourceLayer.Lines.Remove(line);
                 targetLayer.Lines.Add(line);
@@ -81,7 +96,6 @@ namespace LayerPlugin.ViewModels
             var circlesToProcess = sourceLayer.Circles.Where(x => x.IsSelected).ToList();
             foreach (var circle in circlesToProcess)
             {
-                circle.LayerId = targetLayerId;
                 circle.IsSelected = false;
                 sourceLayer.Circles.Remove(circle);
                 targetLayer.Circles.Add(circle);
@@ -93,21 +107,12 @@ namespace LayerPlugin.ViewModels
             var pointsToProcess = sourceLayer.Points.Where(x => x.IsSelected).ToList();
             foreach (var point in pointsToProcess)
             {
-                point.LayerId = targetLayerId;
                 point.IsSelected = false;
                 sourceLayer.Points.Remove(point);
                 targetLayer.Points.Add(point);
             }
         }
-
-
-
-        private void CloseWindow(object obj)
-        {
-            var currentWindow = obj as Window;
-
-            currentWindow?.Close();
-        }
+        #endregion
 
         private void ApplyAndClose(object obj)
         {
@@ -118,63 +123,16 @@ namespace LayerPlugin.ViewModels
             if (document == null)
                 throw new AcRx.Exception(ErrorStatus.NoDocument, "Cannot load document");
 
-            var documentDatabase = document.Database;
-
-            using (Transaction transaction = documentDatabase.TransactionManager.StartOpenCloseTransaction())
-            {
-                foreach (var layerModel in LayerViewModels)
-                {
-                    var layer = transaction.GetObject(layerModel.Layer.Id, OpenMode.ForWrite) as LayerTableRecord;
-                    layer.Color = layerModel.Layer.Color;
-                    layer.Name = layerModel.Layer.Name;
-
-                    foreach (var circle in layerModel.Circles)
-                    {
-                        var databaseCircle = (AcDb.Circle)transaction.GetObject(circle.Id, OpenMode.ForWrite);
-
-                        databaseCircle.LayerId = layerModel.Layer.Id;
-                        databaseCircle.Center = new Point3d(circle.Center.X, circle.Center.Y, 0);
-                        databaseCircle.Radius = circle.Radius;
-                        databaseCircle.Thickness = circle.Height;
-                    }
-
-                    foreach (var line in layerModel.Lines)
-                    {
-                        var databaseLine = (AcDb.Line)transaction.GetObject(line.Id, OpenMode.ForWrite);
-
-                        databaseLine.LayerId = layerModel.Layer.Id;
-                        databaseLine.StartPoint = new Point3d(line.Start.X, line.Start.Y, 0);
-                        databaseLine.EndPoint = new Point3d(line.End.X, line.End.Y, 0);
-                        databaseLine.Thickness = line.Height;
-                    }
-
-                    foreach (var point in layerModel.Points)
-                    {
-                        var databasePoint = (AcDb.DBPoint)transaction.GetObject(point.Id, OpenMode.ForWrite);
-
-                        databasePoint.LayerId = layerModel.Layer.Id;
-                        databasePoint.Position = new Point3d(point.Coordinate.X, point.Coordinate.Y, 0);
-                        databasePoint.Thickness = point.Height;
-                    }
-                }
-
-                transaction.Commit();
-            }
-
-
+            _stateSaver.SaveState(document, LayerViewModels);
+            
             CloseWindow(obj);
         }
 
-        private ObservableCollection<LayerViewModel> LoadLayers()
+        private void CloseWindow(object obj)
         {
-            var layerDataLoader = new LayerDataLoader();
+            var currentWindow = obj as Window;
 
-            var document = AcAp.Application.DocumentManager.MdiActiveDocument;
-
-            if (document == null)
-                throw new AcRx.Exception(ErrorStatus.NoDocument, "Cannot load document");
-
-            return new ObservableCollection<LayerViewModel>(layerDataLoader.GetLayers(document));
+            currentWindow?.Close();
         }
     }
 }

@@ -133,6 +133,7 @@
       <DependentUpon>LayerPlugin.xaml</DependentUpon>
     </Compile>
     <Compile Include="LayerPluginViewModel.cs" />
+    <Compile Include="StateSaver.cs" />
     <Compile Include="Views\CircleView.xaml.cs">
       <DependentUpon>CircleView.xaml</DependentUpon>
     </Compile>

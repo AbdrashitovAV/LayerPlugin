@@ -55,8 +55,7 @@ namespace LayerPlugin
 
                     circles.Add(new LPD.Circle
                     {
-                        Id = id,
-                        LayerId = acdbCircle.LayerId,
+                        Id = (long)id.OldIdPtr,
                         Height = acdbCircle.Thickness,
                         Center = new LPD.Coordinate(center),
                         Radius = acdbCircle.Radius,
@@ -87,8 +86,7 @@ namespace LayerPlugin
 
                     lines.Add(new LPD.Line
                     {
-                        Id = id,
-                        LayerId = line.LayerId,
+                        Id = (long)id.OldIdPtr,
                         Start = new LPD.Coordinate(startPoint),
                         End = new LPD.Coordinate(endPoint),
                         Height = line.Thickness
@@ -117,8 +115,7 @@ namespace LayerPlugin
 
                     points.Add(new LPD.Point
                     {
-                        Id = id,
-                        LayerId = acdbPoint.LayerId,
+                        Id = (long)id.OldIdPtr,
                         Coordinate = new LPD.Coordinate(position),
                         Height = acdbPoint.Thickness
                     });
@@ -141,12 +138,7 @@ namespace LayerPlugin
 
             var selRes = editor.SelectAll(filter);
 
-            if (selRes.Status != PromptStatus.OK)
-            {
-                return null;
-            }
-
-            return selRes.Value.GetObjectIds(); ;
+            return selRes.Status != PromptStatus.OK ? null : selRes.Value.GetObjectIds();
         }
     }
 }
