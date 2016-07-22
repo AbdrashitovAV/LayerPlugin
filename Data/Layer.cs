@@ -14,28 +14,11 @@
         {
         }
 
-        public Layer(int id, string name, IColor color) : this()
+        public Layer(long id, string name, IColor color) : this()
         {
             Id = id;
             Name = name;
             Color = color;
         }
-    }
-
-    public interface IColor
-    {
-    }
-
-    public class SimpleColor : IColor
-    {
-        public byte Red { get; set; }
-        public byte Green { get; set; }
-        public byte Blue { get; set; }
-    }
-
-    public class ComplexColor : IColor
-    {
-        public SimpleColor First { get; set; }
-        public SimpleColor Second { get; set; }
     }
 }

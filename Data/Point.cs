@@ -1,7 +1,7 @@
 ﻿
 namespace LayerPlugin.Data
 {
-    public class Point : AutocadObject
+    public class Point : CadObject
     {
         public Coordinate Coordinate { get; set; }
     }

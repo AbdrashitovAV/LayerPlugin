@@ -2,7 +2,7 @@
 
 namespace LayerPlugin.Data
 {
-    public class Circle: AutocadObject
+    public class Circle: CadObject
     {
         public Coordinate Center { get; set; }
 

@@ -7,47 +7,12 @@
         xmlns:views="clr-namespace:LayerPlugin.Views;assembly=LayerPlugin.Views"
         mc:Ignorable="d"
         Title="Autocad Layer Plugin Test App" Height="350" Width="725">
-    <Window.Resources>
-
-        <!--        <DataTemplate x:Key="PointTemplate">-->
-        <!--            <views:PointView/>-->
-        <!--        </DataTemplate>-->
-        <!---->
-<!--        <DataTemplate x:Key="LineTemplate">-->
-        <!--            <views:LineView/>-->
-        <!---->
-<!--        </DataTemplate>-->
-        <!--        <DataTemplate x:Key="CircleTemplate">-->
-        <!--            <views:CircleView/>-->
-        <!--        </DataTemplate>-->
-        <!---->
-<!--        <helpers:AutocadObjectDataTemplateSelector x:Key="autocadObjectDataTemplateSelector" -->
-        <!--                                                   PointTemplate ="{StaticResource PointTemplate}"-->
-        <!--                                                   CircleTemplate="{StaticResource CircleTemplate}"-->
-        <!--                                                   LineTemplate="{StaticResource LineTemplate}"/>-->
-    </Window.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding LayerViewModels}" HorizontalAlignment="Left" >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Expander Background="AliceBlue">
-                        <Expander.Header>
-                            <views:LayerView/>
-                        </Expander.Header>
-
-                        <Expander.Content>
-                            <ItemsControl Margin="3"
-                                          ItemsSource="{Binding Items}" 
-                                          HorizontalAlignment="Left" 
-                                          VerticalAlignment="Center"
-                                          ItemTemplateSelector="{StaticResource autocadObjectDataTemplateSelector}">
-                            </ItemsControl>
-                        </Expander.Content>
-
-                    </Expander>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-    </ScrollViewer>
+    <Grid>
+        <Button Command="{Binding StartPluginCommand}"
+                Content="Start Plugin"
+                Height="50" Width="200"
+                Margin="10"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                />
+    </Grid>
 </Window>

@@ -60,9 +60,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,9 +75,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutocadObjectViewModel.cs" />
     <Compile Include="CircleViewModel.cs" />
     <Compile Include="IPluginViewModel.cs" />
+    <Compile Include="LayerPluginViewModel.cs" />
     <Compile Include="LayerViewModel.cs" />
     <Compile Include="LineViewModel.cs" />
     <Compile Include="PointViewModel.cs" />
@@ -86,6 +89,10 @@
     <ProjectReference Include="..\Data\LayerPlugin.Data.csproj">
       <Project>{091add53-325e-49c3-b355-e76a914d3e1e}</Project>
       <Name>LayerPlugin.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayerPlugin.Interfaces\LayerPlugin.Interfaces.csproj">
+      <Project>{fcdb4306-2dfa-4811-8934-4a32b5205abf}</Project>
+      <Name>LayerPlugin.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

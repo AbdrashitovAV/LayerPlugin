@@ -29,7 +29,7 @@
                 Width="22" Height="22" 
                 VerticalAlignment="Center" />
 
-        <Button Command="{Binding DataContext.MoveSelectedCommand, RelativeSource = {RelativeSource AncestorType= {x:Type views:MainWindow}}}" 
+        <Button Command="{Binding DataContext.MoveSelectedCommand, RelativeSource = {RelativeSource AncestorType= {x:Type views:LayerPluginView}}}" 
                 Content="Move selected"
                 Width="100" Height="22" 
                 Margin="20,0,3,0" 

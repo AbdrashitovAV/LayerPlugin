@@ -122,27 +122,22 @@
       <Project>{091add53-325e-49c3-b355-e76a914d3e1e}</Project>
       <Name>LayerPlugin.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LayerPlugin.Interfaces\LayerPlugin.Interfaces.csproj">
+      <Project>{fcdb4306-2dfa-4811-8934-4a32b5205abf}</Project>
+      <Name>LayerPlugin.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LayerPlugin.ViewModels\LayerPlugin.ViewModels.csproj">
       <Project>{b2e4d10b-6962-4404-893b-e5b102a59339}</Project>
       <Name>LayerPlugin.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LayerPlugin.Views\LayerPlugin.Views.csproj">
+      <Project>{c6a5bf6a-31c4-4404-8b28-2bfbf4bec6f0}</Project>
+      <Name>LayerPlugin.Views</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LayerDataLoader.cs" />
-    <Compile Include="LayerPlugin.xaml.cs">
-      <DependentUpon>LayerPlugin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LayerPluginViewModel.cs" />
-    <Compile Include="StateSaver.cs" />
-    <Compile Include="Views\CircleView.xaml.cs">
-      <DependentUpon>CircleView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CoordinateView.xaml.cs">
-      <DependentUpon>CoordinateView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\LayerView.xaml.cs">
-      <DependentUpon>LayerView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\LayerDataLoader.cs" />
+    <Compile Include="Helpers\StateSaver.cs" />
     <Compile Include="myCommands.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,15 +146,6 @@
     <Compile Include="myPlugin.cs" />
     <Compile Include="myCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\LineView.xaml.cs">
-      <DependentUpon>LineView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PointView.xaml.cs">
-      <DependentUpon>PointView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TargetLayerSelectorView.xaml.cs">
-      <DependentUpon>TargetLayerSelectorView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="myCommands.resx">
@@ -192,37 +178,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="LayerPlugin.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CircleView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CoordinateView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\LayerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\LineView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PointView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\TargetLayerSelectorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

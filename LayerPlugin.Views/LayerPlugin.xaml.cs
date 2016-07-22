@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Windows;
+using LayerPlugin.Interfaces;
 using LayerPlugin.ViewModels;
 
 namespace LayerPlugin.Views
 {
-    /// <summary>
-    /// Interaction logic for LayerPlugin.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class LayerPluginView : Window
     {
         private LayerPluginViewModel _viewModel;
 
-        public MainWindow()
+        public LayerPluginView(ILayerDataLoader layerDataLoader, IStateSaver stateSaver, ILayerMoveTargetSelector layerMoveTargetSelector)
         {
             try //TODO: remove this
             {
@@ -23,7 +21,7 @@ namespace LayerPlugin.Views
                 throw;
             }
 
-            _viewModel = new LayerPluginViewModel();
+            _viewModel = new LayerPluginViewModel(layerDataLoader, stateSaver, layerMoveTargetSelector);
 
             DataContext = _viewModel;
         }

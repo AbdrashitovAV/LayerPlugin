@@ -2,17 +2,22 @@ using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.Runtime;
+using LayerPlugin.Interfaces;
 using LayerPlugin.ViewModels;
-using LPD = LayerPlugin.Data;
-using AcDb = Autodesk.AutoCAD.DatabaseServices;
 
 namespace LayerPlugin.Helpers
 {
-    internal class StateSaver
+    internal class StateSaver : IStateSaver
     {
 
-        public void SaveState(Autodesk.AutoCAD.ApplicationServices.Document document, IEnumerable<LayerViewModel> layerViewModels)
+        public void SaveState(IEnumerable<ILayerViewModel> layerViewModels)
         {
+            var document = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+
+            if (document == null)
+                throw new Autodesk.AutoCAD.Runtime.Exception(ErrorStatus.NoDocument, "Cannot load document");
+
             var documentDatabase = document.Database;
 
             using (Transaction transaction = documentDatabase.TransactionManager.StartOpenCloseTransaction())
@@ -20,7 +25,7 @@ namespace LayerPlugin.Helpers
                 foreach (var layerModel in layerViewModels)
                 {
                     var layer = (LayerTableRecord) transaction.GetObject(layerModel.Layer.Id, OpenMode.ForWrite);
-                    layer.Color = layerModel.Layer.Color;
+//                    layer.Color = layerModel.Layer.Color; //TODO: fix to normal
                     layer.Name = layerModel.Layer.Name;
 
                     SaveCircles(layerModel, transaction);
@@ -37,7 +42,7 @@ namespace LayerPlugin.Helpers
             foreach (var point in layerModel.Points)
             {
                 var pointId = new ObjectId(new IntPtr(point.Id));
-                var databasePoint = (AcDb.DBPoint) transaction.GetObject(pointId, OpenMode.ForWrite);
+                var databasePoint = (Autodesk.AutoCAD.DatabaseServices.DBPoint) transaction.GetObject(pointId, OpenMode.ForWrite);
 
                 databasePoint.LayerId = layerModel.Layer.Id;
                 databasePoint.Position = new Point3d(point.Coordinate.X, point.Coordinate.Y, 0);
@@ -50,7 +55,7 @@ namespace LayerPlugin.Helpers
             foreach (var line in layerModel.Lines)
             {
                 var lineId = new ObjectId(new IntPtr(line.Id));
-                var databaseLine = (AcDb.Line) transaction.GetObject(lineId, OpenMode.ForWrite);
+                var databaseLine = (Autodesk.AutoCAD.DatabaseServices.Line) transaction.GetObject(lineId, OpenMode.ForWrite);
 
                 databaseLine.LayerId = layerModel.Layer.Id;
                 databaseLine.StartPoint = new Point3d(line.Start.X, line.Start.Y, 0);
@@ -64,7 +69,7 @@ namespace LayerPlugin.Helpers
             foreach (var circle in layerModel.Circles)
             {
                 var circleId = new ObjectId(new IntPtr(circle.Id));
-                var databaseCircle = (AcDb.Circle) transaction.GetObject(circleId, OpenMode.ForWrite);
+                var databaseCircle = (Autodesk.AutoCAD.DatabaseServices.Circle) transaction.GetObject(circleId, OpenMode.ForWrite);
 
                 databaseCircle.LayerId = layerModel.Layer.Id;
                 databaseCircle.Center = new Point3d(circle.Center.X, circle.Center.Y, 0);

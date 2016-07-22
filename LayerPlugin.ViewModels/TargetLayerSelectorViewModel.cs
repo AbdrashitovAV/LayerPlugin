@@ -8,12 +8,12 @@ namespace LayerPlugin.ViewModels
     {
         private readonly Action<bool> _onCloseCallback;
 
-        public List<string> Layers { get; set; }
+        public IEnumerable<string> Layers { get; set; }
         public string SelectedLayer { get; set; }
 
         public DelegateCommand<object> CloseWindowCommand { get; set; }
 
-        public TargetLayerSelectorViewModel(List<string> layers, Action<bool> onCloseCallback)
+        public TargetLayerSelectorViewModel(IEnumerable<string> layers, Action<bool> onCloseCallback)
         {
             _onCloseCallback = onCloseCallback;
             Layers = layers;

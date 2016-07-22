@@ -2,19 +2,27 @@
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using LayerPlugin.Data;
+using LayerPlugin.Interfaces;
 using LayerPlugin.ViewModels;
-using LPD = LayerPlugin.Data;
-using AcDb = Autodesk.AutoCAD.DatabaseServices;
+using Circle = LayerPlugin.Data.Circle;
+using Line = LayerPlugin.Data.Line;
 
-namespace LayerPlugin
+namespace LayerPlugin.Helpers
 {
-    public class LayerDataLoader
+    public class LayerDataLoader : ILayerDataLoader
     {
-        public List<LayerViewModel> GetLayers(Document document)
+
+        public List<ILayerViewModel> GetLayers()
         {
+            var document = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+
+            if (document == null)
+                throw new Autodesk.AutoCAD.Runtime.Exception(Autodesk.AutoCAD.Runtime.ErrorStatus.NoDocument, "Cannot load document");
+
             var documentDatabase = document.Database;
 
-            var layerViewModels = new List<LayerViewModel>();
+            var layerViewModels = new List<ILayerViewModel>();
 
             using (Transaction tr = documentDatabase.TransactionManager.StartOpenCloseTransaction())
             {
@@ -23,7 +31,10 @@ namespace LayerPlugin
                 {
                     var acdbLayer = tr.GetObject(layerId, OpenMode.ForRead) as LayerTableRecord;
 
-                    var layer = new LPD.Layer(acdbLayer);
+                    //TODO: add check
+
+                    var layer = new Data.Layer(layerId.OldIdPtr.ToInt64(), acdbLayer.Name, new Data.SimpleColor()); // TODO: fix to normal
+//                    var layer = new LPD.Layer(acdbLayer);
 
                     var points = GetPointsOnLayer(acdbLayer.Name, document);
                     var circles = GetCirclesOnLayer(acdbLayer.Name, document);
@@ -38,26 +49,26 @@ namespace LayerPlugin
             return layerViewModels;
         }
 
-        private List<LPD.Circle> GetCirclesOnLayer(string layerName, Document document)
+        private List<Circle> GetCirclesOnLayer(string layerName, Document document)
         {
             using (Transaction tr = document.Database.TransactionManager.StartOpenCloseTransaction())
             {
-                var circles = new List<LPD.Circle>();
+                var circles = new List<Circle>();
                 var ids = GetObjectIdsInSelectedLayerOfType(document.Editor, layerName, "CIRCLE");
                 if (ids == null)
-                    return new List<LPD.Circle>();
+                    return new List<Circle>();
 
                 foreach (var id in ids)
                 {
-                    var acdbCircle = (AcDb.Circle)tr.GetObject(id, OpenMode.ForRead);
+                    var acdbCircle = (Autodesk.AutoCAD.DatabaseServices.Circle)tr.GetObject(id, OpenMode.ForRead);
 
                     var center = acdbCircle.Center;
 
-                    circles.Add(new LPD.Circle
+                    circles.Add(new Data.Circle
                     {
                         Id = (long)id.OldIdPtr,
                         Height = acdbCircle.Thickness,
-                        Center = new LPD.Coordinate(center),
+                        Center = new Data.Coordinate(center.X, center.Y),
                         Radius = acdbCircle.Radius,
 
                     });
@@ -67,28 +78,28 @@ namespace LayerPlugin
             }
         }
 
-        private List<LPD.Line> GetLinesOnLayer(string layerName, Document document)
+        private List<Line> GetLinesOnLayer(string layerName, Document document)
         {
             using (Transaction tr = document.Database.TransactionManager.StartOpenCloseTransaction())
             {
-                var lines = new List<LPD.Line>();
+                var lines = new List<Line>();
                 var ids = GetObjectIdsInSelectedLayerOfType(document.Editor, layerName, "LINE");
 
                 if (ids == null)
-                    return new List<LPD.Line>();
+                    return new List<Line>();
 
                 foreach (var id in ids)
                 {
-                    var line = (AcDb.Line)tr.GetObject(id, OpenMode.ForRead);
+                    var line = (Autodesk.AutoCAD.DatabaseServices.Line)tr.GetObject(id, OpenMode.ForRead);
 
                     var startPoint = line.StartPoint;
                     var endPoint = line.EndPoint;
 
-                    lines.Add(new LPD.Line
+                    lines.Add(new Data.Line
                     {
                         Id = (long)id.OldIdPtr,
-                        Start = new LPD.Coordinate(startPoint),
-                        End = new LPD.Coordinate(endPoint),
+                        Start = new Data.Coordinate(startPoint.X, startPoint.Y),
+                        End = new Data.Coordinate(endPoint.X, endPoint.Y),
                         Height = line.Thickness
                     });
                 }
@@ -97,26 +108,26 @@ namespace LayerPlugin
             }
         }
 
-        private List<LPD.Point> GetPointsOnLayer(string layerName, Document document)
+        private List<Point> GetPointsOnLayer(string layerName, Document document)
         {
             using (Transaction tr = document.Database.TransactionManager.StartOpenCloseTransaction())
             {
-                var points = new List<LPD.Point>();
+                var points = new List<Point>();
                 var ids = GetObjectIdsInSelectedLayerOfType(document.Editor, layerName, "POINT");
 
                 if (ids == null)
-                    return new List<LPD.Point>();
+                    return new List<Point>();
 
                 foreach (var id in ids)
                 {
-                    var acdbPoint = (AcDb.DBPoint)tr.GetObject(id, OpenMode.ForRead);
+                    var acdbPoint = (Autodesk.AutoCAD.DatabaseServices.DBPoint)tr.GetObject(id, OpenMode.ForRead);
 
                     var position = acdbPoint.Position;
 
-                    points.Add(new LPD.Point
+                    points.Add(new Data.Point
                     {
                         Id = (long)id.OldIdPtr,
-                        Coordinate = new LPD.Coordinate(position),
+                        Coordinate = new Data.Coordinate(position.X, position.Y),
                         Height = acdbPoint.Thickness
                     });
                 }

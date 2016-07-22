@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerPlugin.ViewModels", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerPlugin.Views", "LayerPlugin.Views\LayerPlugin.Views.csproj", "{C6A5BF6A-31C4-4404-8B28-2BFBF4BEC6F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerPlugin.Interfaces", "LayerPlugin.Interfaces\LayerPlugin.Interfaces.csproj", "{FCDB4306-2DFA-4811-8934-4A32B5205ABF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{C6A5BF6A-31C4-4404-8B28-2BFBF4BEC6F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6A5BF6A-31C4-4404-8B28-2BFBF4BEC6F0}.Release|x64.ActiveCfg = Release|Any CPU
 		{C6A5BF6A-31C4-4404-8B28-2BFBF4BEC6F0}.Release|x64.Build.0 = Release|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Debug|x64.Build.0 = Debug|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Release|x64.ActiveCfg = Release|Any CPU
+		{FCDB4306-2DFA-4811-8934-4A32B5205ABF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

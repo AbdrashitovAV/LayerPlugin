@@ -1,4 +1,4 @@
-﻿<Window x:Class="LayerPlugin.Views.MainWindow"
+﻿<Window x:Class="LayerPlugin.Views.LayerPluginView"
         x:Name="PluginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
