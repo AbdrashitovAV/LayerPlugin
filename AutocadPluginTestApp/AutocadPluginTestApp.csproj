@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\TestLayerColorSelector.cs" />
     <Compile Include="Helpers\TestLayerMoveTargetSelector.cs" />
     <Compile Include="Helpers\TestStateSaver.cs" />
     <Page Include="MainWindow.xaml">

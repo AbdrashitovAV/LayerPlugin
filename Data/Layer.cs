@@ -7,14 +7,7 @@
         public string Name { get; set; }
         public IColor Color { get; set; }
 
-        public bool IsVisible { get; set; }
-
-
-        public Layer()
-        {
-        }
-
-        public Layer(long id, string name, IColor color) : this()
+        public Layer(long id, string name, IColor color)
         {
             Id = id;
             Name = name;

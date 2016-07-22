@@ -13,12 +13,11 @@ namespace AutocadPluginTestApp.Helpers
     {
         public List<ILayerViewModel> GetLayers()
         {
-            var layers = new List<Layer>();
             var layerViewModels = new List<ILayerViewModel>();
 
-            var layerViewModel = new LayerViewModel(new Layer(2, "Second", new SimpleColor()));
-            
             layerViewModels.Add(StubFirstLayer());
+
+            var layerViewModel = new LayerViewModel(new Layer(2, "Second", new SimpleColor()), new List<Point>(), new List<Circle>(), new List<Line>());
             layerViewModels.Add(layerViewModel);
 
             return layerViewModels;

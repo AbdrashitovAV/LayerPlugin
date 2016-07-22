@@ -14,29 +14,50 @@ namespace LayerPlugin.ViewModels
     public class LayerPluginViewModel
     {
         private readonly ILayerDataLoader _layerDataLoader;
+        private readonly ILayerColorSelector _layerColorSelector;
         private readonly IStateSaver _stateSaver;
         private readonly ILayerMoveTargetSelector _layerMoveTargetSelector;
         private List<String> _layerNames;
 
         public ObservableCollection<LayerViewModel> LayerViewModels { get; set; }
 
+        public DelegateCommand<object> ChangeLayerColorCommand { get; set; }
         public DelegateCommand<object> MoveSelectedCommand { get; set; }
         public DelegateCommand<object> CloseCommand { get; set; }
         public DelegateCommand<object> ApplyAndCloseCommand { get; set; }
 
 
-        public LayerPluginViewModel(ILayerDataLoader layerDataLoader, IStateSaver stateSaver, ILayerMoveTargetSelector layerMoveTargetSelector)
+        public LayerPluginViewModel(ILayerDataLoader layerDataLoader,
+                                     ILayerColorSelector layerColorSelector,
+                                    ILayerMoveTargetSelector layerMoveTargetSelector,
+                                    IStateSaver stateSaver )
         {
             _layerDataLoader = layerDataLoader;
-            _stateSaver = stateSaver;
+            _layerColorSelector = layerColorSelector;
             _layerMoveTargetSelector = layerMoveTargetSelector;
+            _stateSaver = stateSaver;
 
+            ChangeLayerColorCommand = new DelegateCommand<object>(ChangeLayerColor);
             MoveSelectedCommand = new DelegateCommand<object>(MoveSelected);
             CloseCommand = new DelegateCommand<object>(CloseWindow);
             ApplyAndCloseCommand = new DelegateCommand<object>(ApplyAndClose);
 
             LayerViewModels = LoadLayers();
-            _layerNames = LayerViewModels.Select(x => x.Layer.Name).ToList();
+            _layerNames = LayerViewModels.Select(x => x.Name).ToList();
+        }
+
+        private void ChangeLayerColor(object obj)
+        {
+            var id = (long)obj;
+
+            var layer = LayerViewModels.Single(x => x.Id == id);
+
+            var selectionResult = _layerColorSelector.Select(layer.Color);
+
+            if(!selectionResult.IsColorChanged)
+                return;
+
+            layer.Color = selectionResult.NewColor;
         }
 
         private ObservableCollection<LayerViewModel> LoadLayers()
@@ -54,8 +75,8 @@ namespace LayerPlugin.ViewModels
             if (string.IsNullOrEmpty(targetLayerName))
                 return;
 
-            var sourceLayer = LayerViewModels.Single(x => x.Layer.Name == sourceLayerName);
-            var targetLayer = LayerViewModels.Single(x => x.Layer.Name == targetLayerName);
+            var sourceLayer = LayerViewModels.Single(x => x.Name == sourceLayerName);
+            var targetLayer = LayerViewModels.Single(x => x.Name == targetLayerName);
 
             MovePointsToAnotherLayer(sourceLayer, targetLayer);
             MoveCirclesToAnotherLayer(sourceLayer, targetLayer);
@@ -86,7 +107,6 @@ namespace LayerPlugin.ViewModels
                 line.IsSelected = false;
                 targetLayer.Lines.Add(line);
                 sourceLayer.Lines.Remove(line);
-
             }
         }
 
@@ -98,7 +118,6 @@ namespace LayerPlugin.ViewModels
                 circle.IsSelected = false;
                 targetLayer.Circles.Add(circle);
                 sourceLayer.Circles.Remove(circle);
-
             }
         }
 

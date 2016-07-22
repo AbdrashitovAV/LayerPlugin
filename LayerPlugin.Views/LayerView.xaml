@@ -11,7 +11,7 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
                />
-        <TextBox Text ="{Binding Layer.Name}" 
+        <TextBox Text ="{Binding Name}" 
                  Margin="3,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"
@@ -24,7 +24,8 @@
                VerticalAlignment="Center"
                />
         
-        <Button Command="{Binding ChangeColorCommand}" 
+        <Button Command="{Binding DataContext.ChangeLayerColorCommand, RelativeSource = {RelativeSource AncestorType= {x:Type views:LayerPluginView}}}" 
+                CommandParameter="{Binding Id}"
                 Background="{Binding ColorBrush}" 
                 Width="22" Height="22" 
                 VerticalAlignment="Center" />
@@ -34,7 +35,7 @@
                 Width="100" Height="22" 
                 Margin="20,0,3,0" 
                 VerticalAlignment="Center"
-                CommandParameter="{ Binding Layer.Name}">
+                CommandParameter="{ Binding Name}">
             
         </Button>
     </StackPanel>

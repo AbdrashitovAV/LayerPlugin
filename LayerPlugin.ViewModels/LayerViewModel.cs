@@ -12,34 +12,52 @@ namespace LayerPlugin.ViewModels
 {
     public class LayerViewModel : PropertyChangedImplementation, ILayerViewModel
     {
-        public Layer Layer { get; private set; }
+        private readonly Layer _layer;
 
-        public System.Windows.Media.Brush ColorBrush { get; set; }
+        public long Id => _layer.Id;
+
+        public string Name
+        {
+            get { return _layer.Name; }
+            set
+            {
+                if (_layer.Name != value)
+                {
+                    _layer.Name = value;
+                    RaisePropertyChanged(() => Name);
+                }
+            }
+        }
+
+        public IColor Color
+        {
+            get { return _layer.Color; }
+            set
+            {
+                if (_layer.Color != value) // todo: ???
+                {
+                    _layer.Color = value;
+
+                    ColorBrush = GetBrushForColor(_layer.Color);
+
+                    RaisePropertyChanged(() => Color);
+                    RaisePropertyChanged(() => ColorBrush);
+                }
+            }
+        }
+
+        public System.Windows.Media.Brush ColorBrush { get; private set; }
 
         public ObservableCollection<PointViewModel> Points { get; set; }
         public ObservableCollection<CircleViewModel> Circles { get; set; }
         public ObservableCollection<LineViewModel> Lines { get; set; }
-
-        public DelegateCommand<object> ChangeColorCommand { get; set; }
-
-        public LayerViewModel(Layer layer)
-        {
-            Points = new ObservableCollection<PointViewModel>();
-            Circles  = new ObservableCollection<CircleViewModel>();
-            Lines = new ObservableCollection<LineViewModel>();
-
-            Layer = layer;
-            ColorBrush = GetBrushForColor(layer.Color);
-
-            ChangeColorCommand = new DelegateCommand<object>(OpenSelectColorDialog);
-        }
 
         private Brush GetBrushForColor(IColor color)
         {
             if (color is SimpleColor)
             {
                 var simpleColor = (SimpleColor)color;
-                var solidColor = Color.FromRgb(simpleColor.Red, simpleColor.Green, simpleColor.Blue);
+                var solidColor = System.Windows.Media.Color.FromRgb(simpleColor.Red, simpleColor.Green, simpleColor.Blue);
 
                 return new SolidColorBrush(solidColor);
             }
@@ -47,8 +65,8 @@ namespace LayerPlugin.ViewModels
             if (color is ComplexColor)
             {
                 var complexColor = (ComplexColor)color;
-                var firstColor = Color.FromRgb(complexColor.First.Red, complexColor.First.Green, complexColor.First.Blue);
-                var secondColor = Color.FromRgb(complexColor.Second.Red, complexColor.Second.Green, complexColor.Second.Blue);
+                var firstColor = System.Windows.Media.Color.FromRgb(complexColor.First.Red, complexColor.First.Green, complexColor.First.Blue);
+                var secondColor = System.Windows.Media.Color.FromRgb(complexColor.Second.Red, complexColor.Second.Green, complexColor.Second.Blue);
 
                 var complexBrush = new LinearGradientBrush();
                 complexBrush.GradientStops.Add(new GradientStop(firstColor, 0.0));
@@ -62,8 +80,11 @@ namespace LayerPlugin.ViewModels
             throw new NotImplementedException();
         }
 
-        public LayerViewModel(Layer layer, List<Point> points, List<Circle> circles, List<Line> lines) : this(layer)
+        public LayerViewModel( Layer layer, List<Point> points, List<Circle> circles, List<Line> lines)
         {
+            _layer = layer;
+            ColorBrush = GetBrushForColor(layer.Color);
+
             Points = new ObservableCollection<PointViewModel>(points.Select(x => new PointViewModel(x)));
             Circles = new ObservableCollection<CircleViewModel>(circles.Select(x => new CircleViewModel(x)));
             Lines = new ObservableCollection<LineViewModel>(lines.Select(x => new LineViewModel(x)));
@@ -72,6 +93,15 @@ namespace LayerPlugin.ViewModels
 
         private void OpenSelectColorDialog(object obj)
         {
+//            var colorSelectionResult = _layerColorSelector.Select(_layer.Color);
+
+//            if (!colorSelectionResult.IsColorChanged) return;
+
+//            _layer.Color = colorSelectionResult.NewColor;
+//            ColorBrush = GetBrushForColor(_layer.Color);
+
+//            RaisePropertyChanged(() => ColorBrush);
+
             //TODO: implement in dependency
 
             //    var colorDialog = new ColorDialog

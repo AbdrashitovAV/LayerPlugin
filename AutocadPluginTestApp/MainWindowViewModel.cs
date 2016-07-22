@@ -19,7 +19,7 @@ namespace AutocadPluginTestApp
         }
         private void StartPlugin(object obj)
         {
-            var layerPluginView = new LayerPluginView(new TestLayerDataLoader(), new TestStateSaver(), new TestLayerMoveTargetSelector());
+            var layerPluginView = new LayerPluginView(new TestLayerDataLoader(),new TestLayerColorSelector(), new TestLayerMoveTargetSelector(), new TestStateSaver());
 
             layerPluginView.ShowDialog();
         }

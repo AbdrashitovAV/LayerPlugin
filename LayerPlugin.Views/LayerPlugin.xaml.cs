@@ -9,7 +9,10 @@ namespace LayerPlugin.Views
     {
         private LayerPluginViewModel _viewModel;
 
-        public LayerPluginView(ILayerDataLoader layerDataLoader, IStateSaver stateSaver, ILayerMoveTargetSelector layerMoveTargetSelector)
+        public LayerPluginView(ILayerDataLoader layerDataLoader, 
+                               ILayerColorSelector layerColorSelector, 
+                               ILayerMoveTargetSelector layerMoveTargetSelector, 
+                               IStateSaver stateSaver)
         {
             try //TODO: remove this
             {
@@ -21,7 +24,7 @@ namespace LayerPlugin.Views
                 throw;
             }
 
-            _viewModel = new LayerPluginViewModel(layerDataLoader, stateSaver, layerMoveTargetSelector);
+            _viewModel = new LayerPluginViewModel(layerDataLoader, layerColorSelector, layerMoveTargetSelector, stateSaver);
 
             DataContext = _viewModel;
         }
