@@ -93,14 +93,6 @@ namespace LayerPlugin.ViewModels
 
         private void OpenSelectColorDialog(object obj)
         {
-//            var colorSelectionResult = _layerColorSelector.Select(_layer.Color);
-
-//            if (!colorSelectionResult.IsColorChanged) return;
-
-//            _layer.Color = colorSelectionResult.NewColor;
-//            ColorBrush = GetBrushForColor(_layer.Color);
-
-//            RaisePropertyChanged(() => ColorBrush);
 
             //TODO: implement in dependency
 
@@ -123,28 +115,5 @@ namespace LayerPlugin.ViewModels
             //    }
         }
 
-        //        //TODO: move this function to separate class
-        //        private Brush ColorIndexToMediaBrush(int colorIndex)
-        //        {
-        //            if (colorIndex != 7)
-        //            {
-        //                var acirgb = Autodesk.AutoCAD.Colors.EntityColor.LookUpRgb((byte)colorIndex);
-        //                var b = (byte)(acirgb);
-        //                var g = (byte)(acirgb >> 8);
-        //                var r = (byte)(acirgb >> 16);
-        //
-        //                var color = Color.FromRgb(r, g, b);
-        //                return new SolidColorBrush(color);
-        //            }
-        //            else
-        //            {
-        //                var specialBrush = new LinearGradientBrush();
-        //                specialBrush.GradientStops.Add(new GradientStop(Colors.White, 0.0));
-        //                specialBrush.GradientStops.Add(new GradientStop(Colors.White, 0.5));
-        //                specialBrush.GradientStops.Add(new GradientStop(Colors.Black, 0.51));
-        //                specialBrush.GradientStops.Add(new GradientStop(Colors.Black, 1.0));
-        //                return specialBrush;
-        //            }
-        //        }
     }
 }

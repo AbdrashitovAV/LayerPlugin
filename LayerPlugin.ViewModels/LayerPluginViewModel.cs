@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using LayerPlugin.Interfaces;
 using Microsoft.Practices.Prism.Commands;
 //using AcAp = Autodesk.AutoCAD.ApplicationServices;
@@ -85,14 +84,7 @@ namespace LayerPlugin.ViewModels
 
         private string GetTargetLayerName(string sourceLayerName)
         {
-
             var namesToShow = _layerNames.Where(x => x != sourceLayerName).ToList();
-
-            //            var modal = new TargetLayerSelectorView(namesToShow);
-            //
-            //            AcAp.Application.ShowModalWindow(modal);
-            //
-            //            var targetLayerName = modal.TargetLayer;
 
             var targetLayerName = _layerMoveTargetSelector.Select(namesToShow);
 
