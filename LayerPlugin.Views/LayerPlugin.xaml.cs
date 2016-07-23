@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.Communicators;
 using LayerPlugin.ViewModels;
 
 namespace LayerPlugin.Views
@@ -9,20 +9,12 @@ namespace LayerPlugin.Views
     {
         private LayerPluginViewModel _viewModel;
 
-        public LayerPluginView(ILayerDataLoader layerDataLoader, 
-                               ILayerColorSelector layerColorSelector, 
-                               ILayerMoveTargetSelector layerMoveTargetSelector, 
+        public LayerPluginView(ILayerDataLoader layerDataLoader,
+                               ILayerColorSelector layerColorSelector,
+                               ILayerMoveTargetSelector layerMoveTargetSelector,
                                IStateSaver stateSaver)
         {
-            try //TODO: remove this
-            {
-                InitializeComponent();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
+            InitializeComponent();
 
             _viewModel = new LayerPluginViewModel(layerDataLoader, layerColorSelector, layerMoveTargetSelector, stateSaver);
 

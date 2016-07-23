@@ -1,6 +1,6 @@
 ﻿using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
-using LayerPlugin.Helpers;
+using LayerPlugin.Communicators;
 using LayerPlugin.Views;
 
 // This line is not mandatory, but improves loading performances

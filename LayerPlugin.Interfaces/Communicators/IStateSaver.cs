@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using LayerPlugin.Interfaces.ViewModels;
 
-namespace LayerPlugin.Interfaces
+namespace LayerPlugin.Interfaces.Communicators
 {
     public interface IStateSaver
     {

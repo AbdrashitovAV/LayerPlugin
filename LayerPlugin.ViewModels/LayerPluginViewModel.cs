@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.Communicators;
 using Microsoft.Practices.Prism.Commands;
 //using AcAp = Autodesk.AutoCAD.ApplicationServices;
 //using AcDb = Autodesk.AutoCAD.DatabaseServices;

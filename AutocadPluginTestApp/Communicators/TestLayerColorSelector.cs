@@ -1,8 +1,8 @@
 ﻿using System;
 using LayerPlugin.Data;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.Communicators;
 
-namespace AutocadPluginTestApp.Helpers
+namespace AutocadPluginTestApp.Communicators
 {
     class TestLayerColorSelector : ILayerColorSelector
     {

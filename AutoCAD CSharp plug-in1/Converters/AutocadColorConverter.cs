@@ -2,7 +2,7 @@ using System;
 using LayerPlugin.Data;
 using AcCl = Autodesk.AutoCAD.Colors;
 
-namespace LayerPlugin.Helpers
+namespace LayerPlugin.Converters
 {
     public class AutocadColorConverter
     {

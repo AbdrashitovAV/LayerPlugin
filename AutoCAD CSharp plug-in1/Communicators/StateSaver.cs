@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using LayerPlugin.Interfaces;
-using LayerPlugin.ViewModels;
+using LayerPlugin.Interfaces.Communicators;
+using LayerPlugin.Interfaces.ViewModels;
 
-namespace LayerPlugin.Helpers
+namespace LayerPlugin.Communicators
 {
     internal class StateSaver : IStateSaver
     {
-
         public void SaveState(IEnumerable<ILayerViewModel> layerViewModels)
         {
             var document = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;

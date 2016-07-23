@@ -1,6 +1,6 @@
 using LayerPlugin.Data;
 
-namespace LayerPlugin.Interfaces
+namespace LayerPlugin.Interfaces.ViewModels
 {
     public interface ILayerViewModel
     {

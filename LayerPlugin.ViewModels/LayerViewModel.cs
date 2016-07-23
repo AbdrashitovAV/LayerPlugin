@@ -4,9 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
 using LayerPlugin.Data;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.ViewModels;
 using LayerPlugin.ViewModels.PropertyChanged;
-using Microsoft.Practices.Prism.Commands;
 
 namespace LayerPlugin.ViewModels
 {

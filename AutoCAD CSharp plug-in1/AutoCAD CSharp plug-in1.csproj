@@ -138,11 +138,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AutocadColorConverter.cs" />
-    <Compile Include="Helpers\LayerDataLoader.cs" />
-    <Compile Include="Helpers\StateSaver.cs" />
-    <Compile Include="Helpers\TestLayerColorSelector.cs" />
-    <Compile Include="Helpers\LayerMoveTargetSelector.cs" />
+    <Compile Include="Converters\AutocadColorConverter.cs" />
+    <Compile Include="Communicators\LayerDataLoader.cs" />
+    <Compile Include="Communicators\StateSaver.cs" />
+    <Compile Include="Communicators\TestLayerColorSelector.cs" />
+    <Compile Include="Communicators\LayerMoveTargetSelector.cs" />
     <Compile Include="myCommands.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -185,9 +185,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

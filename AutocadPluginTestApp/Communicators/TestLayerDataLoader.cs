@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using LayerPlugin.Data;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.Communicators;
+using LayerPlugin.Interfaces.ViewModels;
 using LayerPlugin.ViewModels;
 
-namespace AutocadPluginTestApp.Helpers
+namespace AutocadPluginTestApp.Communicators
 {
     class TestLayerDataLoader : ILayerDataLoader
     {

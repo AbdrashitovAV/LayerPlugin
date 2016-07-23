@@ -2,11 +2,13 @@
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Converters;
+using LayerPlugin.Interfaces.Communicators;
+using LayerPlugin.Interfaces.ViewModels;
 using LayerPlugin.ViewModels;
 using LPD = LayerPlugin.Data;
 
-namespace LayerPlugin.Helpers
+namespace LayerPlugin.Communicators
 {
     public class LayerDataLoader : ILayerDataLoader
     {

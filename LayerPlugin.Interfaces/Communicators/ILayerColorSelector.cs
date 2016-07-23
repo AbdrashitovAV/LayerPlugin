@@ -1,6 +1,6 @@
 ﻿using LayerPlugin.Data;
 
-namespace LayerPlugin.Interfaces
+namespace LayerPlugin.Interfaces.Communicators
 {
     public interface ILayerColorSelector
     {

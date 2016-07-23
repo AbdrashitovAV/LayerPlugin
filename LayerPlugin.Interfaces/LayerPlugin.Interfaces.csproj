@@ -42,11 +42,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILayerColorSelector.cs" />
-    <Compile Include="ILayerDataLoader.cs" />
-    <Compile Include="ILayerMoveTargetSelector.cs" />
-    <Compile Include="ILayerViewModel.cs" />
-    <Compile Include="IStateSaver.cs" />
+    <Compile Include="Communicators\ILayerColorSelector.cs" />
+    <Compile Include="Communicators\ILayerDataLoader.cs" />
+    <Compile Include="Communicators\ILayerMoveTargetSelector.cs" />
+    <Compile Include="ViewModels\ILayerViewModel.cs" />
+    <Compile Include="Communicators\IStateSaver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +55,7 @@
       <Name>LayerPlugin.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

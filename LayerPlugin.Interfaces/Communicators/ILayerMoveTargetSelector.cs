@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LayerPlugin.Interfaces
+namespace LayerPlugin.Interfaces.Communicators
 {
     public interface ILayerMoveTargetSelector
     {

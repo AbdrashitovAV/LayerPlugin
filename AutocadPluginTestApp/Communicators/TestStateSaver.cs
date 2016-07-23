@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.Communicators;
+using LayerPlugin.Interfaces.ViewModels;
 
-namespace AutocadPluginTestApp.Helpers
+namespace AutocadPluginTestApp.Communicators
 {
     internal class TestStateSaver : IStateSaver
     {

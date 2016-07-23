@@ -1,4 +1,4 @@
-﻿using AutocadPluginTestApp.Helpers;
+﻿using AutocadPluginTestApp.Communicators;
 using LayerPlugin.Views;
 using Microsoft.Practices.Prism.Commands;
 

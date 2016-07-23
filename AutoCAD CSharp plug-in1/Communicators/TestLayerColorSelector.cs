@@ -1,9 +1,9 @@
-﻿using System;
-using Autodesk.AutoCAD.Windows;
+﻿using Autodesk.AutoCAD.Windows;
+using LayerPlugin.Converters;
 using LayerPlugin.Data;
-using LayerPlugin.Interfaces;
+using LayerPlugin.Interfaces.Communicators;
 
-namespace LayerPlugin.Helpers
+namespace LayerPlugin.Communicators
 {
     class TestLayerColorSelector : ILayerColorSelector
     {

@@ -82,9 +82,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\TestLayerColorSelector.cs" />
-    <Compile Include="Helpers\TestLayerMoveTargetSelector.cs" />
-    <Compile Include="Helpers\TestStateSaver.cs" />
+    <Compile Include="Communicators\TestLayerColorSelector.cs" />
+    <Compile Include="Communicators\TestLayerMoveTargetSelector.cs" />
+    <Compile Include="Communicators\TestStateSaver.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,7 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\TestLayerDataLoader.cs" />
+    <Compile Include="Communicators\TestLayerDataLoader.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
