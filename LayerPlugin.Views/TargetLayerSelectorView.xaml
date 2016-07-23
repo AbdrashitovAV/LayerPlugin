@@ -36,7 +36,9 @@
 
             </ListBox>
         </ScrollViewer>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"  Orientation="Horizontal">
+        <StackPanel Grid.Row="1" 
+                    HorizontalAlignment="Right" VerticalAlignment="Center"  
+                    Orientation="Horizontal">
             <Button Content="Ok" 
                     Width="50" 
                     Margin="5"

@@ -1,16 +1,15 @@
-﻿<UserControl x:Class="LayerPlugin.Views.HeightView"
+﻿<UserControl x:Class="LayerPlugin.Views.BasicViews.HeightView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LayerPlugin.Views"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal">
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
                    Text="Height:"
                    />
-        <TextBox Text ="{Binding Height}" 
+        <TextBox Text ="{Binding .}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"

@@ -75,13 +75,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicViews\IsSelectedView.xaml.cs">
+      <DependentUpon>IsSelectedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CircleView.xaml.cs">
       <DependentUpon>CircleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CoordinateView.xaml.cs">
+    <Compile Include="BasicViews\CoordinateView.xaml.cs">
       <DependentUpon>CoordinateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HeightView.xaml.cs">
+    <Compile Include="BasicViews\HeightView.xaml.cs">
       <DependentUpon>HeightView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AutocadObjectDataTemplateSelector.cs" />
@@ -103,15 +106,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BasicViews\IsSelectedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CircleView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CoordinateView.xaml">
+    <Page Include="BasicViews\CoordinateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="HeightView.xaml">
+    <Page Include="BasicViews\HeightView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

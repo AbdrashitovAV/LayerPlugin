@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:views="clr-namespace:LayerPlugin.Views"
+             xmlns:basicViews="clr-namespace:LayerPlugin.Views.BasicViews"
              mc:Ignorable="d" >
     <StackPanel Orientation="Horizontal"
                 Margin="3">
@@ -12,19 +13,9 @@
                    VerticalAlignment="Center" 
                    Width="80"/>
 
-        <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
-                   Margin="10,0"/>
-        <views:CoordinateView DataContext="{Binding Line.Start }"/>
-        <views:CoordinateView DataContext="{Binding Line.End }"/>
-
-        <TextBlock VerticalAlignment="Center"
-                   Margin="10,0" 
-                   Text="Height:"/>
-        <TextBox Text ="{Binding Line.Height}" 
-                 Margin="10,0" 
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Width="80"
-                 />
+        <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
+        <basicViews:CoordinateView DataContext="{Binding Line.Start }"/>
+        <basicViews:CoordinateView DataContext="{Binding Line.End }"/>
+        <basicViews:HeightView DataContext="{Binding Line.Height}"/>
     </StackPanel>
 </UserControl>

@@ -1,10 +1,7 @@
 ﻿using System.Windows.Controls;
 
-namespace LayerPlugin.Views
+namespace LayerPlugin.Views.BasicViews
 {
-    /// <summary>
-    /// Interaction logic for CoordinateView.xaml
-    /// </summary>
     public partial class CoordinateView : UserControl
     {
         public CoordinateView()

@@ -4,24 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:views="clr-namespace:LayerPlugin.Views"
+             xmlns:basicViews="clr-namespace:LayerPlugin.Views.BasicViews"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal"
                 Margin="3">
         <TextBlock Text="I'm a Point" 
                    VerticalAlignment="Center" 
                    Width="80"/>
-        <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
-                   Margin="10,0"/>
-        <views:CoordinateView DataContext="{Binding Point.Coordinate }"/>
-        
-        <TextBlock VerticalAlignment="Center"
-                   Margin="10,0" 
-                   Text="Height:"/>
-        <TextBox Text ="{Binding Point.Height}" 
-                 Margin="10,0" 
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Width="80"
-                 />
+        <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
+        <basicViews:CoordinateView DataContext="{Binding Point.Coordinate }"/>
+        <basicViews:HeightView DataContext="{Binding Point.Height}"/>
     </StackPanel>
 </UserControl>
