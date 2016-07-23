@@ -5,12 +5,13 @@ using LayerPlugin.Interfaces.Communicators;
 
 namespace LayerPlugin.Communicators
 {
-    class TestLayerColorSelector : ILayerColorSelector
+    class AutocadLayerColorSelector : ILayerColorSelector
     {
         private AutocadColorConverter _colorConverter;
 
-        public TestLayerColorSelector()
+        public AutocadLayerColorSelector()
         {
+            //TODO: to dependency
             _colorConverter = new AutocadColorConverter();
         }
 
@@ -25,19 +26,12 @@ namespace LayerPlugin.Communicators
             var dialogResult = colorDialog.ShowDialog();
 
             if (dialogResult != System.Windows.Forms.DialogResult.OK)
-                return new LayerColorSelectionResult() { IsColorChanged = false };
+                return new LayerColorSelectionResult { IsColorChanged = false };
 
             var selectedColor = colorDialog.Color;
 
-            return new LayerColorSelectionResult() { IsColorChanged = true, NewColor = _colorConverter.ConvertFrom(selectedColor) };
-
-            //                    Layer.Color = selectedColor;
-            //                    ColorBrush = ColorIndexToMediaBrush(selectedColor.ColorIndex);
-            //
-            //                    RaisePropertyChanged(() => ColorBrush);
+            return new LayerColorSelectionResult { IsColorChanged = true, NewColor = _colorConverter.ConvertFrom(selectedColor) };
         }
-
-        //            return new LayerColorSelectionResult() { IsColorChanged = true, NewColor = new SimpleColor(colorBuffer[0], colorBuffer[1], colorBuffer[2]) };
     }
 }
 

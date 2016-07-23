@@ -29,7 +29,7 @@ namespace LayerPlugin
         [CommandMethod("MyGroup", "autocad", "MyCommandLocal", CommandFlags.Modal)]
         public void Autocad() // This method can have any name
         {
-            var layerPluginWindow = new LayerPluginView(new LayerDataLoader(), new TestLayerColorSelector(), new LayerMoveTargetSelector(), new StateSaver());
+            var layerPluginWindow = new LayerPluginView(new LayerDataLoader(), new AutocadLayerColorSelector(), new LayerMoveTargetSelector(), new StateSaver());
             Application.ShowModalWindow(layerPluginWindow);
         }
         

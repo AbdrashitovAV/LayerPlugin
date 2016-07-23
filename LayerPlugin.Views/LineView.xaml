@@ -14,13 +14,13 @@
 
         <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
                    Margin="10,0"/>
-        <views:CoordinateView DataContext="{Binding Start }"/>
-        <views:CoordinateView DataContext="{Binding End }"/>
+        <views:CoordinateView DataContext="{Binding Line.Start }"/>
+        <views:CoordinateView DataContext="{Binding Line.End }"/>
 
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
                    Text="Height:"/>
-        <TextBox Text ="{Binding Height}" 
+        <TextBox Text ="{Binding Line.Height}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"

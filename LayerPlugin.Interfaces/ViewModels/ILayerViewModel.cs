@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using LayerPlugin.Data;
 
 namespace LayerPlugin.Interfaces.ViewModels
@@ -11,9 +12,9 @@ namespace LayerPlugin.Interfaces.ViewModels
 
         System.Windows.Media.Brush ColorBrush { get; }
 
-//        public ObservableCollection<PointViewModel> Points { get; set; }
-//        public ObservableCollection<CircleViewModel> Circles { get; set; }
-//        public ObservableCollection<LineViewModel> Lines { get; set; }
+        IList<IPointViewModel> Points { get; set; }
+        IList<ICircleViewModel> Circles { get; set; }
+        IList<ILineViewModel> Lines { get; set; }
 
     }
 }

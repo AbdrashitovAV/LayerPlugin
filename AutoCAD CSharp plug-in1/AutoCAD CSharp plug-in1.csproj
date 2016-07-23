@@ -141,7 +141,7 @@
     <Compile Include="Converters\AutocadColorConverter.cs" />
     <Compile Include="Communicators\LayerDataLoader.cs" />
     <Compile Include="Communicators\StateSaver.cs" />
-    <Compile Include="Communicators\TestLayerColorSelector.cs" />
+    <Compile Include="Communicators\AutocadLayerColorSelector.cs" />
     <Compile Include="Communicators\LayerMoveTargetSelector.cs" />
     <Compile Include="myCommands.Designer.cs">
       <AutoGen>True</AutoGen>

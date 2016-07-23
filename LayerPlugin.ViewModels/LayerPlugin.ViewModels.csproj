@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CircleViewModel.cs" />
-    <Compile Include="IPluginViewModel.cs" />
     <Compile Include="LayerPluginViewModel.cs" />
     <Compile Include="LayerViewModel.cs" />
     <Compile Include="LineViewModel.cs" />

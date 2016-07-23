@@ -1,9 +1,11 @@
 ﻿using LayerPlugin.Data;
+using LayerPlugin.Interfaces.ViewModels;
 
 namespace LayerPlugin.ViewModels
 {
-    public class LineViewModel: Line, IPluginViewModel
+    public class LineViewModel: ILineViewModel
     {
+        public Line Line { get; }
         public bool IsSelected { get; set; }
 
         public LineViewModel()
@@ -13,11 +15,7 @@ namespace LayerPlugin.ViewModels
 
         public LineViewModel(Line line)
         {
-            Id = line.Id;
-            Start = line.Start;
-            End = line.End;
-            Height = line.Height;
-
+            Line = line;
         }
     }
 }

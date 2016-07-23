@@ -47,9 +47,9 @@ namespace LayerPlugin.ViewModels
 
         public System.Windows.Media.Brush ColorBrush { get; private set; }
 
-        public ObservableCollection<PointViewModel> Points { get; set; }
-        public ObservableCollection<CircleViewModel> Circles { get; set; }
-        public ObservableCollection<LineViewModel> Lines { get; set; }
+        public IList<IPointViewModel> Points { get; set; }
+        public IList<ICircleViewModel> Circles { get; set; }
+        public IList<ILineViewModel> Lines { get; set; }
 
         private Brush GetBrushForColor(IColor color)
         {
@@ -84,35 +84,9 @@ namespace LayerPlugin.ViewModels
             _layer = layer;
             ColorBrush = GetBrushForColor(layer.Color);
 
-            Points = new ObservableCollection<PointViewModel>(points.Select(x => new PointViewModel(x)));
-            Circles = new ObservableCollection<CircleViewModel>(circles.Select(x => new CircleViewModel(x)));
-            Lines = new ObservableCollection<LineViewModel>(lines.Select(x => new LineViewModel(x)));
+            Points = new ObservableCollection<IPointViewModel>(points.Select(x => new PointViewModel(x)));
+            Circles = new ObservableCollection<ICircleViewModel>(circles.Select(x => new CircleViewModel(x)));
+            Lines = new ObservableCollection<ILineViewModel>(lines.Select(x => new LineViewModel(x)));
         }
-
-
-        private void OpenSelectColorDialog(object obj)
-        {
-
-            //TODO: implement in dependency
-
-            //    var colorDialog = new ColorDialog
-            //    {
-            //        IncludeByBlockByLayer = false,
-            //        Color = Layer.Color
-            //    };
-
-            //    var dialogResult = colorDialog.ShowDialog();
-
-            //    if (dialogResult == System.Windows.Forms.DialogResult.OK)
-            //    {
-            //        var selectedColor = colorDialog.Color;
-
-            //        Layer.Color = selectedColor;
-            //        ColorBrush = ColorIndexToMediaBrush(selectedColor.ColorIndex);
-
-            //        RaisePropertyChanged(() => ColorBrush);
-            //    }
-        }
-
     }
 }

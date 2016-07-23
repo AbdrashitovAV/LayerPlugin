@@ -1,10 +1,13 @@
 ﻿using LayerPlugin.Data;
+using LayerPlugin.Interfaces.ViewModels;
 
 namespace LayerPlugin.ViewModels
 {
-    public class CircleViewModel : Circle, IPluginViewModel
+    public class CircleViewModel : ICircleViewModel
     {
         public bool IsSelected { get; set; }
+
+        public Circle Circle { get; }
 
         public CircleViewModel()
         {
@@ -13,10 +16,7 @@ namespace LayerPlugin.ViewModels
 
         public CircleViewModel(Circle circle)
         {
-            Id = circle.Id;
-            Height = circle.Height;
-            Radius= circle.Radius;
-            Center = circle.Center;
+            Circle = circle;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace LayerPlugin.ViewModels
+﻿namespace LayerPlugin.Interfaces.ViewModels
 {
     public interface IPluginViewModel
     {

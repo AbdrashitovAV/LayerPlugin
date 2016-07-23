@@ -12,11 +12,11 @@
         <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
                    Margin="10,0"/>
 
-        <views:CoordinateView DataContext="{Binding Center }"/>
+        <views:CoordinateView DataContext="{Binding Circle.Center }"/>
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
                    Text="Radius:"/>
-        <TextBox Text ="{Binding Radius}" 
+        <TextBox Text ="{Binding Circle.Radius}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"
@@ -26,7 +26,7 @@
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
                    Text="Height:"/>
-        <TextBox Text ="{Binding Height}" 
+        <TextBox Text ="{Binding Circle.Height}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"

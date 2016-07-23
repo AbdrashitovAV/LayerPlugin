@@ -25,13 +25,13 @@ namespace AutocadPluginTestApp.Communicators
             var layer = new Layer(1, "First", new SimpleColor());
             var points = new List<Point>()
             {
-                new Point {Coordinate = new Coordinate() {X = 5, Y = 6}, Height = 10}
+                new Point {Coordinate = new Coordinate {X = 5, Y = 6}, Height = 10}
             };
-            var circles = new List<Circle>()
+            var circles = new List<Circle>
             {
-                new Circle {Center = new Coordinate() {X = 3, Y = 6}, Height = 11}
+                new Circle {Center = new Coordinate() {X = 3, Y = 6}, Height = 11, Radius = 4}
             };
-            var lines = new List<Line>()
+            var lines = new List<Line>
             {
                 new Line() {Start = new Coordinate {X = 1, Y = 1}, End = new Coordinate {X = 11, Y = 11}, Height = 9}
             };

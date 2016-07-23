@@ -81,6 +81,9 @@
     <Compile Include="CoordinateView.xaml.cs">
       <DependentUpon>CoordinateView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HeightView.xaml.cs">
+      <DependentUpon>HeightView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AutocadObjectDataTemplateSelector.cs" />
     <Compile Include="LayerPlugin.xaml.cs">
       <DependentUpon>LayerPlugin.xaml</DependentUpon>
@@ -107,6 +110,10 @@
     <Page Include="CoordinateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HeightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LayerPlugin.xaml">
       <Generator>MSBuild:Compile</Generator>

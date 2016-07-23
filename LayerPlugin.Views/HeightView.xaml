@@ -1,23 +1,16 @@
-﻿<UserControl x:Class="LayerPlugin.Views.PointView"
+﻿<UserControl x:Class="LayerPlugin.Views.HeightView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:LayerPlugin.Views"
+             xmlns:local="clr-namespace:LayerPlugin.Views"
              mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal"
-                Margin="3">
-        <TextBlock Text="I'm a Point" 
-                   VerticalAlignment="Center" 
-                   Width="80"/>
-        <CheckBox  IsChecked="{Binding IsSelected}" VerticalAlignment="Center"
-                   Margin="10,0"/>
-        <views:CoordinateView DataContext="{Binding Point.Coordinate }"/>
-        
+    <StackPanel Orientation="Horizontal">
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
-                   Text="Height:"/>
-        <TextBox Text ="{Binding Point.Height}" 
+                   Text="Height:"
+                   />
+        <TextBox Text ="{Binding Height}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"

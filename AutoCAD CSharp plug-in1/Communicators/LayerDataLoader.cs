@@ -6,6 +6,7 @@ using LayerPlugin.Converters;
 using LayerPlugin.Interfaces.Communicators;
 using LayerPlugin.Interfaces.ViewModels;
 using LayerPlugin.ViewModels;
+using AcAp = Autodesk.AutoCAD.ApplicationServices;
 using LPD = LayerPlugin.Data;
 
 namespace LayerPlugin.Communicators
@@ -16,12 +17,13 @@ namespace LayerPlugin.Communicators
 
         public LayerDataLoader()
         {
+            //TODO: to dependency
             _colorConverter = new AutocadColorConverter();
         }
 
         public List<ILayerViewModel> GetLayers()
         {
-            var document = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            var document = AcAp.Application.DocumentManager.MdiActiveDocument;
 
             if (document == null)
                 throw new Autodesk.AutoCAD.Runtime.Exception(Autodesk.AutoCAD.Runtime.ErrorStatus.NoDocument, "Cannot load document");

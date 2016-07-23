@@ -1,9 +1,11 @@
 ﻿using LayerPlugin.Data;
+using LayerPlugin.Interfaces.ViewModels;
 
 namespace LayerPlugin.ViewModels
 {
-    public class PointViewModel: Point, IPluginViewModel
+    public class PointViewModel: IPointViewModel
     {
+        public Point Point { get; set; }
         public bool IsSelected { get; set; }
 
         public PointViewModel()
@@ -13,11 +15,7 @@ namespace LayerPlugin.ViewModels
 
         public PointViewModel(Point point)
         {
-            Id = point.Id;
-
-            Coordinate = point.Coordinate; //TODO: add via copy?
-
-            Height = point.Height;
+            Point = point;
         }
     }
 }
