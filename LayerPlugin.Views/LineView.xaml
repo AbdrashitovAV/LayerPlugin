@@ -8,14 +8,12 @@
              mc:Ignorable="d" >
     <StackPanel Orientation="Horizontal"
                 Margin="3">
-        
-        <TextBlock Text="I'm a Line" 
-                   VerticalAlignment="Center" 
-                   Width="80"/>
+
+        <basicViews:Label ObjectType ="Line"/>
 
         <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Line.Start }"/>
         <basicViews:CoordinateView DataContext="{Binding Line.End }"/>
-        <basicViews:HeightView DataContext="{Binding Line.Height}"/>
+        <basicViews:HeightView DataContext="{Binding Line.Height, Mode=TwoWay}"/>
     </StackPanel>
 </UserControl>

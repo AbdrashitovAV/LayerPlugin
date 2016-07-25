@@ -78,6 +78,9 @@
     <Compile Include="BasicViews\IsSelectedView.xaml.cs">
       <DependentUpon>IsSelectedView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BasicViews\Label.xaml.cs">
+      <DependentUpon>Label.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CircleView.xaml.cs">
       <DependentUpon>CircleView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="BasicViews\IsSelectedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BasicViews\Label.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

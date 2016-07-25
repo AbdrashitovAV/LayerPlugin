@@ -7,23 +7,22 @@
              xmlns:basicViews="clr-namespace:LayerPlugin.Views.BasicViews"
              mc:Ignorable="d" >
     <StackPanel Orientation="Horizontal" Margin="3">
-        <TextBlock Text="I'm a Circle" 
-                   VerticalAlignment="Center"
-                   Width="80"/>
-        
+
+        <basicViews:Label ObjectType ="Circle"/>
+
         <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Circle.Center}"/>
-        
+
         <TextBlock VerticalAlignment="Center"
                    Margin="10,0" 
                    Text="Radius:"/>
-        <TextBox Text ="{Binding Circle.Radius}" 
+        <TextBox Text ="{Binding Circle.Radius, StringFormat=N4}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"
                  Width="80"
                  />
 
-        <basicViews:HeightView DataContext="{Binding Circle.Height}"/>
+        <basicViews:HeightView DataContext="{Binding Circle.Height, Mode=TwoWay}"/>
     </StackPanel>
 </UserControl>

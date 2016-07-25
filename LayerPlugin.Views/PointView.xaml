@@ -8,11 +8,11 @@
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal"
                 Margin="3">
-        <TextBlock Text="I'm a Point" 
-                   VerticalAlignment="Center" 
-                   Width="80"/>
+        
+        <basicViews:Label ObjectType ="Point"/>
         <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
-        <basicViews:CoordinateView DataContext="{Binding Point.Coordinate }"/>
+        <basicViews:CoordinateView DataContext="{Binding Point.Coordinate}"/>
         <basicViews:HeightView DataContext="{Binding Point.Height}"/>
+        
     </StackPanel>
 </UserControl>
