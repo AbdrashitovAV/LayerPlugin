@@ -14,6 +14,6 @@
         <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Line.Start }"/>
         <basicViews:CoordinateView DataContext="{Binding Line.End }"/>
-        <basicViews:HeightView DataContext="{Binding Line.Height, Mode=TwoWay}"/>
+        <basicViews:HeightView Height="{Binding Line.Height}"/>
     </StackPanel>
 </UserControl>

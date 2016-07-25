@@ -12,7 +12,7 @@
         <basicViews:Label ObjectType ="Point"/>
         <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Point.Coordinate}"/>
-        <basicViews:HeightView DataContext="{Binding Point.Height}"/>
+        <basicViews:HeightView Height="{Binding Point.Height}"/>
         
     </StackPanel>
 </UserControl>

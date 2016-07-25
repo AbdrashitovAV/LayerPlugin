@@ -23,6 +23,6 @@
                  Width="80"
                  />
 
-        <basicViews:HeightView DataContext="{Binding Circle.Height, Mode=TwoWay}"/>
+        <basicViews:HeightView Height="{Binding Circle.Height}"/>
     </StackPanel>
 </UserControl>
