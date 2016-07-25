@@ -9,10 +9,9 @@ namespace LayerPlugin.Communicators
     {
         private AutocadColorConverter _colorConverter;
 
-        public AutocadLayerColorSelector()
+        public AutocadLayerColorSelector(AutocadColorConverter autocadColorConverter)
         {
-            //TODO: to dependency
-            _colorConverter = new AutocadColorConverter();
+            _colorConverter = autocadColorConverter;
         }
 
         public LayerColorSelectionResult Select(IColor color)

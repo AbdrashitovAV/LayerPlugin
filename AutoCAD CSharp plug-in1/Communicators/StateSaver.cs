@@ -14,9 +14,9 @@ namespace LayerPlugin.Communicators
     {
         private AutocadColorConverter _colorConverter;
 
-        public StateSaver()
+        public StateSaver(AutocadColorConverter autocadColorConverter)
         {
-            _colorConverter = new AutocadColorConverter();
+            _colorConverter = autocadColorConverter;
         }
 
         public void SaveState(IEnumerable<ILayerViewModel> layerViewModels)
@@ -43,7 +43,6 @@ namespace LayerPlugin.Communicators
                     SaveLines(layerModel.Lines, layerId, transaction);
                 }
 
-                //TODO: uncomment
                 transaction.Commit();
             }
         }

@@ -1,6 +1,7 @@
 ﻿using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
 using LayerPlugin.Communicators;
+using LayerPlugin.Converters;
 using LayerPlugin.Views;
 
 // This line is not mandatory, but improves loading performances
@@ -29,7 +30,14 @@ namespace LayerPlugin
         [CommandMethod("MyGroup", "autocad", "MyCommandLocal", CommandFlags.Modal)]
         public void Autocad() // This method can have any name
         {
-            var layerPluginWindow = new LayerPluginView(new LayerDataLoader(), new AutocadLayerColorSelector(), new LayerMoveTargetSelector(), new StateSaver());
+            var autocadColorConverter = new AutocadColorConverter();
+
+            var layerDataLoader = new LayerDataLoader(autocadColorConverter);
+            var autocadLayerColorSelector = new AutocadLayerColorSelector(autocadColorConverter);
+            var layerMoveTargetSelector = new LayerMoveTargetSelector();
+            var stateSaver = new StateSaver(autocadColorConverter);
+
+            var layerPluginWindow = new LayerPluginView(layerDataLoader, autocadLayerColorSelector, layerMoveTargetSelector, stateSaver);
             Application.ShowModalWindow(layerPluginWindow);
         }
         

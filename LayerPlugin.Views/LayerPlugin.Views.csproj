@@ -87,7 +87,6 @@
     <Compile Include="BasicViews\HeightView.xaml.cs">
       <DependentUpon>HeightView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AutocadObjectDataTemplateSelector.cs" />
     <Compile Include="LayerPlugin.xaml.cs">
       <DependentUpon>LayerPlugin.xaml</DependentUpon>
     </Compile>
