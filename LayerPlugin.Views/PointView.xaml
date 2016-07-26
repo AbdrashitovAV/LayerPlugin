@@ -2,17 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:LayerPlugin.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:basicViews="clr-namespace:LayerPlugin.Views.BasicViews"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal"
                 Margin="3">
         
         <basicViews:Label ObjectType ="Point"/>
-        <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
+        <basicViews:IsSelectedView IsSelected="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Point.Coordinate}"/>
-        <basicViews:HeightView Height="{Binding Point.Height}"/>
+        <basicViews:HeightView ModelHeight="{Binding Point.Height}"/>
         
     </StackPanel>
 </UserControl>

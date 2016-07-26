@@ -23,13 +23,14 @@
                      SelectedItem="{Binding SelectedLayer}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        
+                        <Grid >
                             <Grid.InputBindings>
                                 <MouseBinding MouseAction="LeftDoubleClick" 
                                   Command="{Binding DataContext.CloseWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type views:TargetLayerSelectorView}}}" 
                                   CommandParameter="{StaticResource True}"/>
                             </Grid.InputBindings>
-                            <TextBlock Text="{Binding}" />
+                            <TextBlock Text="{Binding}" HorizontalAlignment="Stretch"  TextAlignment="Left"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

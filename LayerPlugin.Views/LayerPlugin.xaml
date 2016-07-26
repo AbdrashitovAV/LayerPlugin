@@ -7,7 +7,13 @@
         xmlns:views="clr-namespace:LayerPlugin.Views"
         mc:Ignorable="d"
         Background="LightGray"
-        Title="LayerPlugin" Height="400" Width="600">
+        Title="LayerPlugin">
+    <Window.Resources>
+        <Style  x:Key="ButtonStyle">
+            <Setter Property="Button.Width" Value="50" />
+            <Setter Property="Button.Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
 
 
     <Grid>
@@ -31,9 +37,8 @@
                             <Expander.Content>
                                 <StackPanel Background="LightGray">
                                     <ItemsControl Margin="3"
-                                              ItemsSource="{Binding Points}" 
-                                              HorizontalAlignment="Left" 
-                                              VerticalAlignment="Center">
+                                                  ItemsSource="{Binding Points}" 
+                                                  HorizontalAlignment="Left">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <views:PointView/>
@@ -41,9 +46,8 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                     <ItemsControl Margin="3"
-                                              ItemsSource="{Binding Circles}" 
-                                              HorizontalAlignment="Left" 
-                                              VerticalAlignment="Center">
+                                                  ItemsSource="{Binding Circles}" 
+                                                  HorizontalAlignment="Left">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <views:CircleView/>
@@ -51,9 +55,8 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                     <ItemsControl Margin="3"
-                                              ItemsSource="{Binding Lines}" 
-                                              HorizontalAlignment="Left" 
-                                              VerticalAlignment="Center">
+                                                  ItemsSource="{Binding Lines}" 
+                                                  HorizontalAlignment="Left" >
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <views:LineView/>
@@ -76,13 +79,11 @@
             <Button Content="Save" 
                     Command="{Binding ApplyAndCloseCommand}"
                     CommandParameter="{Binding ElementName=PluginWindow}" 
-                    Margin="5"
-                    Width="50"/>
+                    Style="{StaticResource ButtonStyle}" />
             <Button Content="Cancel" 
                     Command="{Binding CloseCommand}"
                     CommandParameter="{Binding ElementName=PluginWindow}" 
-                    Margin="5"
-                    Width="50"/>
+                    Style="{StaticResource ButtonStyle}" />
         </StackPanel>
 
     </Grid>

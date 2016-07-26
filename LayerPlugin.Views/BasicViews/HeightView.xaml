@@ -7,7 +7,7 @@
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal">
         <basicviews:DoubleInput Caption="Height:" 
-                                Value="{Binding Height,  UpdateSourceTrigger=PropertyChanged , RelativeSource={RelativeSource AncestorType={x:Type basicviews:HeightView}}}"/>
+                                Value="{Binding ModelHeight,  UpdateSourceTrigger=PropertyChanged , RelativeSource={RelativeSource AncestorType={x:Type basicviews:HeightView}}}"/>
 
     </StackPanel>
 </UserControl>

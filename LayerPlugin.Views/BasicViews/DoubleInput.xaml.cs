@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -24,18 +23,6 @@ namespace LayerPlugin.Views.BasicViews
         public DoubleInput()
         {
             InitializeComponent();
-
-//            (this.Content as FrameworkElement).DataContext = this;
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void SetValueDP(DependencyProperty property, object value, [System.Runtime.CompilerServices.CallerMemberName] string p = null)
-        {
-            SetValue(property, value);
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(p));
         }
     }
 }

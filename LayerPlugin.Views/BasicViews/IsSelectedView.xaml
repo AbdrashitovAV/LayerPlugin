@@ -2,9 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:basicViews="clr-namespace:LayerPlugin.Views.BasicViews"
              mc:Ignorable="d" >
-    <CheckBox  IsChecked="{Binding .}" 
-               VerticalAlignment="Center"
-               Margin="10,0"/>
+    <UserControl.Resources>
+        <Style  x:Key="IsSelectedCheckBoxStyle">
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Setter Property="TextBlock.Margin" Value="10,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <CheckBox  IsChecked="{Binding Path=IsSelected, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type basicViews:IsSelectedView}}}" 
+               Style="{StaticResource IsSelectedCheckBoxStyle}" />
 </UserControl>

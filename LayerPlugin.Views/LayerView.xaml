@@ -5,39 +5,59 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:views="clr-namespace:LayerPlugin.Views"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseElementStyle">
+                <Setter Property="FrameworkElement.VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style  x:Key="LayerViewCaptionStyle" BasedOn="{StaticResource BaseElementStyle}">
+                <Setter Property="TextBlock.Margin" Value="20,0,3,0"/>
+            </Style>
+
+            <Style  x:Key="LayerViewValueStyle" BasedOn="{StaticResource BaseElementStyle}">
+                <Setter Property="TextBlock.Margin" Value="3,0"/>
+                <Setter Property="TextBlock.Width" Value="100"/>
+            </Style>
+
+            <Style  x:Key="MoveSelectedButtonStyle" BasedOn="{StaticResource BaseElementStyle}">
+                <Setter Property="TextBlock.Margin" Value="20,0,3,0"/>
+                <Setter Property="TextBlock.Width" Value="100"/>
+                <Setter Property="TextBlock.Height" Value="22"/>
+            </Style>
+
+            <Style  x:Key="ChangeLayerColorButtonStyle" BasedOn="{StaticResource BaseElementStyle}">
+                <Setter Property="TextBlock.Margin" Value="20,0,3,0"/>
+                <Setter Property="TextBlock.Width" Value="22"/>
+                <Setter Property="TextBlock.Height" Value="22"/>
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <StackPanel Orientation="Horizontal" Margin="3">
         <Label Content ="Name:" 
-               Margin="20,0,3,0" 
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
+               Style="{StaticResource LayerViewCaptionStyle}" 
                />
+        
         <TextBox Text ="{Binding Name}" 
-                 Margin="3,0" 
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Width="100"
+                 Style="{StaticResource LayerViewValueStyle}"
                  />
 
         <Label Content ="Color:" 
-               Margin="20,0,3,0" 
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
+               Style="{StaticResource LayerViewCaptionStyle}" 
                />
         
         <Button Command="{Binding DataContext.ChangeLayerColorCommand, RelativeSource = {RelativeSource AncestorType= {x:Type views:LayerPluginView}}}" 
                 CommandParameter="{Binding Id}"
                 Background="{Binding ColorBrush}" 
-                Width="22" Height="22" 
-                VerticalAlignment="Center" />
+                Style="{StaticResource ChangeLayerColorButtonStyle}" />
 
-        <Button Command="{Binding DataContext.MoveSelectedCommand, RelativeSource = {RelativeSource AncestorType= {x:Type views:LayerPluginView}}}" 
-                Content="Move selected"
-                Width="100" Height="22" 
-                Margin="20,0,3,0" 
-                VerticalAlignment="Center"
-                CommandParameter="{ Binding Name}">
-            
-        </Button>
+        <Button Content="Move selected"
+                Command="{Binding DataContext.MoveSelectedCommand, RelativeSource = {RelativeSource AncestorType= {x:Type views:LayerPluginView}}}" 
+                CommandParameter="{ Binding Name}"
+                Style="{StaticResource MoveSelectedButtonStyle}"
+                />
     </StackPanel>
 </UserControl>
 

@@ -3,19 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:LayerPlugin.Views"
              xmlns:basicViews="clr-namespace:LayerPlugin.Views.BasicViews"
              mc:Ignorable="d" >
     <StackPanel Orientation="Horizontal" Margin="3">
 
         <basicViews:Label ObjectType ="Circle"/>
 
-        <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
+        <basicViews:IsSelectedView IsSelected="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Circle.Center}"/>
 
         <basicViews:DoubleInput Caption="Radius:" 
                                 Value="{Binding Circle.Radius,  UpdateSourceTrigger=PropertyChanged}"/>
 
-        <basicViews:HeightView Height="{Binding Circle.Height}"/>
+        <basicViews:HeightView ModelHeight="{Binding Circle.Height}"/>
     </StackPanel>
 </UserControl>
