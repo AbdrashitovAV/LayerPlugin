@@ -13,15 +13,8 @@
         <basicViews:IsSelectedView DataContext="{Binding IsSelected}"/>
         <basicViews:CoordinateView DataContext="{Binding Circle.Center}"/>
 
-        <TextBlock VerticalAlignment="Center"
-                   Margin="10,0" 
-                   Text="Radius:"/>
-        <TextBox Text ="{Binding Circle.Radius, StringFormat=N4}" 
-                 Margin="10,0" 
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Width="80"
-                 />
+        <basicViews:DoubleInput Caption="Radius:" 
+                                Value="{Binding Circle.Radius,  UpdateSourceTrigger=PropertyChanged}"/>
 
         <basicViews:HeightView Height="{Binding Circle.Height}"/>
     </StackPanel>

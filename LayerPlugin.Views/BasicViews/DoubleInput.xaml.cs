@@ -7,12 +7,12 @@ namespace LayerPlugin.Views.BasicViews
 {
     public partial class DoubleInput : UserControl
     {
-        public String Value
+        public Double Value
         {
-            get { return (String)this.GetValue(ValueProperty); }
+            get { return (Double)this.GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(String), typeof(BasicViews.DoubleInput), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(Double), typeof(BasicViews.DoubleInput), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public String Caption
         {

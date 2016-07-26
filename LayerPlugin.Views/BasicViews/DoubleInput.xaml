@@ -10,7 +10,7 @@
                    Margin="10,0" 
                    Text="{Binding Caption}"
                    />
-        <TextBox Text ="{Binding Value, Mode=TwoWay}" 
+        <TextBox Text ="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" 
                  Margin="10,0" 
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"
